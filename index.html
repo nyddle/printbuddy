@@ -1,0 +1,1450 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PrintBuddy — Магазин принтов для фотографов</title>
+    <meta name="description" content="Загрузи фотографии — получи магазин принтов. Без возни с оплатой, печатью и доставкой.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --black: #0a0a0a;
+            --white: #fafafa;
+            --gray-50: #f5f5f5;
+            --gray-100: #e8e8e8;
+            --gray-200: #d4d4d4;
+            --gray-400: #a0a0a0;
+            --gray-500: #737373;
+            --gray-600: #525252;
+            --gray-700: #404040;
+            --gray-800: #262626;
+            --serif: 'Playfair Display', Georgia, serif;
+            --sans: 'Inter', -apple-system, system-ui, sans-serif;
+        }
+
+        html {
+            font-size: 16px;
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            font-family: var(--sans);
+            color: var(--black);
+            background: var(--white);
+            line-height: 1.6;
+        }
+
+        /* ── NAV ── */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 1.25rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(250, 250, 250, 0.9);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.3s;
+        }
+
+        nav.scrolled {
+            border-bottom-color: var(--gray-100);
+        }
+
+        .logo {
+            font-family: var(--sans);
+            font-weight: 600;
+            font-size: 1.125rem;
+            letter-spacing: -0.02em;
+            color: var(--black);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            font-size: 0.875rem;
+            color: var(--gray-600);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--black);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--sans);
+            font-size: 0.9375rem;
+            font-weight: 500;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            letter-spacing: -0.01em;
+        }
+
+        .btn-primary {
+            background: var(--black);
+            color: var(--white);
+            padding: 0.8125rem 2rem;
+            border-radius: 6px;
+        }
+
+        .btn-primary:hover {
+            background: var(--gray-800);
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--gray-600);
+            padding: 0.8125rem 0;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .btn-secondary:hover {
+            color: var(--black);
+            border-bottom-color: var(--black);
+        }
+
+        .btn-nav {
+            background: var(--black);
+            color: var(--white);
+            padding: 0.5rem 1.25rem;
+            border-radius: 5px;
+            font-size: 0.875rem;
+        }
+
+        .btn-nav:hover {
+            background: var(--gray-800);
+        }
+
+        /* ── SECTIONS ── */
+        section {
+            padding: 6rem 2rem;
+        }
+
+        .container {
+            max-width: 1120px;
+            margin: 0 auto;
+        }
+
+        .container--narrow {
+            max-width: 720px;
+            margin: 0 auto;
+        }
+
+        /* ── HERO ── */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-family: var(--serif);
+            font-size: clamp(2.5rem, 5vw, 3.75rem);
+            font-weight: 400;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-text h1 em {
+            font-style: italic;
+        }
+
+        .hero-text p {
+            font-size: 1.125rem;
+            color: var(--gray-600);
+            line-height: 1.7;
+            max-width: 440px;
+            margin-bottom: 2.5rem;
+        }
+
+        .hero-cta {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .hero-visual {
+            position: relative;
+        }
+
+        .hero-gallery {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+            transform: rotate(-1deg);
+        }
+
+        .hero-gallery .photo {
+            aspect-ratio: 3/4;
+            background: var(--gray-100);
+            border-radius: 4px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-gallery .photo:nth-child(2) {
+            transform: translateY(2rem);
+        }
+
+        .hero-gallery .photo:nth-child(3) {
+            aspect-ratio: 4/3;
+            grid-column: span 2;
+        }
+
+        .hero-gallery .photo-inner {
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            filter: grayscale(30%);
+        }
+
+        .photo-1 .photo-inner {
+            background: linear-gradient(135deg, #2a2a2a 0%, #555 50%, #333 100%);
+        }
+
+        .photo-2 .photo-inner {
+            background: linear-gradient(180deg, #444 0%, #222 100%);
+        }
+
+        .photo-3 .photo-inner {
+            background: linear-gradient(90deg, #383838 0%, #555 30%, #2a2a2a 70%, #444 100%);
+        }
+
+        .photo-label {
+            position: absolute;
+            bottom: 0.75rem;
+            left: 0.75rem;
+            font-size: 0.6875rem;
+            color: rgba(255,255,255,0.7);
+            font-family: var(--sans);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        /* ── PROBLEM ── */
+        .problem {
+            background: var(--black);
+            color: var(--white);
+        }
+
+        .problem .section-label {
+            color: var(--gray-400);
+        }
+
+        .section-label {
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--gray-400);
+            margin-bottom: 2rem;
+        }
+
+        .problem h2 {
+            font-family: var(--serif);
+            font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+            font-weight: 400;
+            line-height: 1.3;
+            max-width: 640px;
+            margin-bottom: 3.5rem;
+        }
+
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .problem-card {
+            border-top: 1px solid var(--gray-700);
+            padding-top: 1.5rem;
+        }
+
+        .problem-card h3 {
+            font-family: var(--sans);
+            font-size: 1rem;
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+        }
+
+        .problem-card p {
+            font-size: 0.9375rem;
+            color: var(--gray-400);
+            line-height: 1.65;
+        }
+
+        /* ── SOLUTION ── */
+        .solution {
+            padding: 8rem 2rem;
+        }
+
+        .solution h2 {
+            font-family: var(--serif);
+            font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+            font-weight: 400;
+            line-height: 1.3;
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 1.5rem;
+        }
+
+        .solution > .container > p {
+            text-align: center;
+            color: var(--gray-500);
+            font-size: 1.0625rem;
+            max-width: 520px;
+            margin: 0 auto 4rem;
+            line-height: 1.7;
+        }
+
+        .solution-flow {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .solution-step {
+            text-align: center;
+            flex: 0 1 200px;
+        }
+
+        .solution-step .step-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: var(--gray-50);
+            border: 1px solid var(--gray-100);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.25rem;
+            font-size: 1.25rem;
+        }
+
+        .solution-step h4 {
+            font-size: 0.9375rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .solution-step p {
+            font-size: 0.8125rem;
+            color: var(--gray-500);
+            line-height: 1.6;
+        }
+
+        .solution-arrow {
+            flex: 0 0 auto;
+            margin-top: 1.25rem;
+            color: var(--gray-200);
+            font-size: 1.25rem;
+        }
+
+        /* ── HOW IT WORKS ── */
+        .how {
+            background: var(--gray-50);
+        }
+
+        .how h2 {
+            font-family: var(--serif);
+            font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+            font-weight: 400;
+            line-height: 1.3;
+            margin-bottom: 3.5rem;
+        }
+
+        .steps-list {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0;
+        }
+
+        .step-item {
+            display: grid;
+            grid-template-columns: 80px 1fr;
+            gap: 2rem;
+            padding: 2.5rem 0;
+            border-bottom: 1px solid var(--gray-200);
+            align-items: start;
+        }
+
+        .step-item:first-child {
+            border-top: 1px solid var(--gray-200);
+        }
+
+        .step-number {
+            font-family: var(--serif);
+            font-size: 2.5rem;
+            font-weight: 400;
+            color: var(--gray-200);
+            line-height: 1;
+        }
+
+        .step-content h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .step-content p {
+            font-size: 0.9375rem;
+            color: var(--gray-500);
+            line-height: 1.65;
+            max-width: 500px;
+        }
+
+        /* ── BENEFITS ── */
+        .benefits h2 {
+            font-family: var(--serif);
+            font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+            font-weight: 400;
+            line-height: 1.3;
+            max-width: 500px;
+            margin-bottom: 3.5rem;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 3rem 4rem;
+        }
+
+        .benefit {
+            max-width: 420px;
+        }
+
+        .benefit h3 {
+            font-family: var(--serif);
+            font-size: 1.25rem;
+            font-weight: 400;
+            font-style: italic;
+            margin-bottom: 0.75rem;
+        }
+
+        .benefit p {
+            font-size: 0.9375rem;
+            color: var(--gray-500);
+            line-height: 1.65;
+        }
+
+        /* ── TESTIMONIALS ── */
+        .testimonials {
+            background: var(--black);
+            color: var(--white);
+        }
+
+        .testimonials .section-label {
+            color: var(--gray-400);
+        }
+
+        .testimonials h2 {
+            font-family: var(--serif);
+            font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+            font-weight: 400;
+            line-height: 1.3;
+            margin-bottom: 3.5rem;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .testimonial {
+            border-top: 1px solid var(--gray-700);
+            padding-top: 1.5rem;
+        }
+
+        .testimonial blockquote {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: var(--gray-200);
+            margin-bottom: 1.5rem;
+            font-style: normal;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .testimonial-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--gray-700);
+        }
+
+        .testimonial-name {
+            font-size: 0.8125rem;
+            font-weight: 500;
+        }
+
+        .testimonial-role {
+            font-size: 0.75rem;
+            color: var(--gray-500);
+        }
+
+        /* ── STORE PREVIEW ── */
+        .preview {
+            padding: 8rem 2rem;
+        }
+
+        .preview h2 {
+            font-family: var(--serif);
+            font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+            font-weight: 400;
+            line-height: 1.3;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .preview > .container > p {
+            text-align: center;
+            color: var(--gray-500);
+            font-size: 1rem;
+            margin-bottom: 3.5rem;
+        }
+
+        .store-mockup {
+            background: var(--white);
+            border: 1px solid var(--gray-100);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.06);
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .store-browser-bar {
+            background: var(--gray-50);
+            border-bottom: 1px solid var(--gray-100);
+            padding: 0.75rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .browser-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--gray-200);
+        }
+
+        .browser-url {
+            flex: 1;
+            background: var(--white);
+            border-radius: 4px;
+            padding: 0.375rem 0.75rem;
+            font-size: 0.75rem;
+            color: var(--gray-400);
+            margin-left: 0.5rem;
+        }
+
+        .store-content {
+            padding: 3rem;
+        }
+
+        .store-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .store-header h3 {
+            font-family: var(--serif);
+            font-size: 1.5rem;
+            font-weight: 400;
+            margin-bottom: 0.375rem;
+        }
+
+        .store-header p {
+            font-size: 0.8125rem;
+            color: var(--gray-400);
+        }
+
+        .store-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+
+        .store-item {
+            aspect-ratio: 3/4;
+            background: var(--gray-100);
+            border-radius: 4px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .store-item-inner {
+            width: 100%;
+            height: 100%;
+        }
+
+        .store-item:nth-child(1) .store-item-inner {
+            background: linear-gradient(160deg, #333 0%, #555 40%, #2a2a2a 100%);
+        }
+
+        .store-item:nth-child(2) .store-item-inner {
+            background: linear-gradient(200deg, #444 0%, #2e2e2e 60%, #3a3a3a 100%);
+        }
+
+        .store-item:nth-child(3) .store-item-inner {
+            background: linear-gradient(140deg, #3d3d3d 0%, #555 50%, #333 100%);
+        }
+
+        .store-item-label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 0.75rem;
+            background: linear-gradient(transparent, rgba(0,0,0,0.5));
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .store-item-title {
+            font-size: 0.75rem;
+            color: white;
+            font-weight: 500;
+        }
+
+        .store-item-price {
+            font-size: 0.6875rem;
+            color: rgba(255,255,255,0.7);
+        }
+
+        /* ── IN ROOM ── */
+        .in-room {
+            padding: 8rem 2rem;
+            background: var(--white);
+            overflow: hidden;
+        }
+
+        .in-room h2 {
+            font-family: var(--serif);
+            font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+            font-weight: 400;
+            line-height: 1.3;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .in-room > .container > p {
+            text-align: center;
+            color: var(--gray-500);
+            font-size: 1rem;
+            margin-bottom: 3.5rem;
+            max-width: 460px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .room-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.25rem;
+        }
+
+        .room-scene {
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            aspect-ratio: 4/3;
+        }
+
+        .room-scene.tall {
+            grid-row: span 2;
+            aspect-ratio: auto;
+        }
+
+        .room-wall {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        /* Room backgrounds — warm interior tones */
+        .room-1 .room-wall {
+            background: linear-gradient(180deg, #e8e0d6 0%, #ddd5c9 40%, #c4b8aa 100%);
+        }
+
+        .room-2 .room-wall {
+            background: linear-gradient(180deg, #f0ece6 0%, #e6e0d8 50%, #d8d0c4 100%);
+        }
+
+        .room-3 .room-wall {
+            background: linear-gradient(180deg, #eae6e0 0%, #dedad2 60%, #c8c0b4 100%);
+        }
+
+        /* Furniture hints */
+        .room-furniture {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+
+        /* Room 1: sofa */
+        .room-1 .room-furniture {
+            height: 30%;
+            background: linear-gradient(180deg, transparent 0%, rgba(180,170,155,0.3) 20%, #a89880 60%, #8a7e6c 100%);
+            border-radius: 60% 60% 0 0 / 40% 40% 0 0;
+        }
+
+        /* Room 2: console table */
+        .room-2 .room-furniture {
+            height: 22%;
+            background: #3d3529;
+            border-radius: 2px 2px 0 0;
+            left: 15%;
+            right: 15%;
+        }
+
+        .room-2 .room-furniture::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: 10%;
+            width: 12%;
+            height: 20px;
+            background: #6b8f71;
+            border-radius: 50% 50% 0 0;
+        }
+
+        /* Room 3: bed headboard */
+        .room-3 .room-furniture {
+            height: 35%;
+            background: linear-gradient(180deg, transparent 0%, #c8bfb0 10%, #b8ad9c 40%, #a89880 100%);
+        }
+
+        .room-3 .room-furniture::before {
+            content: '';
+            position: absolute;
+            top: 12%;
+            left: 10%;
+            right: 10%;
+            height: 3px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 2px;
+        }
+
+        /* Framed prints on walls */
+        .wall-frame {
+            position: absolute;
+            background: var(--white);
+            padding: 6px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1), 0 1px 4px rgba(0,0,0,0.06);
+        }
+
+        .wall-frame .frame-image {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        /* Room 1: two prints above sofa */
+        .room-1 .wall-frame:nth-child(1) {
+            width: 28%;
+            aspect-ratio: 3/4;
+            top: 10%;
+            left: 22%;
+        }
+
+        .room-1 .wall-frame:nth-child(1) .frame-image {
+            background: linear-gradient(145deg, #1a1a1a 0%, #3a3a3a 40%, #252525 100%);
+        }
+
+        .room-1 .wall-frame:nth-child(2) {
+            width: 22%;
+            aspect-ratio: 1/1;
+            top: 16%;
+            left: 56%;
+        }
+
+        .room-1 .wall-frame:nth-child(2) .frame-image {
+            background: linear-gradient(200deg, #2e2e2e 0%, #4a4a4a 50%, #333 100%);
+        }
+
+        /* Room 2: single large print */
+        .room-2 .wall-frame {
+            width: 42%;
+            aspect-ratio: 3/2;
+            top: 12%;
+            left: 29%;
+            padding: 8px;
+        }
+
+        .room-2 .wall-frame .frame-image {
+            background: linear-gradient(160deg, #222 0%, #444 30%, #1a1a1a 70%, #333 100%);
+        }
+
+        /* Room 3: tall vertical triptych */
+        .room-3 .wall-frame:nth-child(1) {
+            width: 20%;
+            aspect-ratio: 2/3;
+            top: 6%;
+            left: 15%;
+        }
+
+        .room-3 .wall-frame:nth-child(1) .frame-image {
+            background: linear-gradient(180deg, #2a2a2a 0%, #444 50%, #1e1e1e 100%);
+        }
+
+        .room-3 .wall-frame:nth-child(2) {
+            width: 24%;
+            aspect-ratio: 2/3;
+            top: 4%;
+            left: 40%;
+        }
+
+        .room-3 .wall-frame:nth-child(2) .frame-image {
+            background: linear-gradient(140deg, #333 0%, #555 40%, #2a2a2a 100%);
+        }
+
+        .room-3 .wall-frame:nth-child(3) {
+            width: 18%;
+            aspect-ratio: 1/1;
+            top: 10%;
+            left: 70%;
+        }
+
+        .room-3 .wall-frame:nth-child(3) .frame-image {
+            background: linear-gradient(210deg, #3a3a3a 0%, #1e1e1e 60%, #444 100%);
+        }
+
+        .room-caption {
+            position: absolute;
+            bottom: 1rem;
+            right: 1rem;
+            font-size: 0.6875rem;
+            color: rgba(120, 110, 95, 0.7);
+            font-family: var(--sans);
+            letter-spacing: 0.04em;
+        }
+
+        @media (max-width: 600px) {
+            .room-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .room-scene.tall {
+                aspect-ratio: 4/3;
+                grid-row: span 1;
+            }
+        }
+
+        /* ── PRICING ── */
+        .pricing {
+            background: var(--gray-50);
+        }
+
+        .pricing h2 {
+            font-family: var(--serif);
+            font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+            font-weight: 400;
+            line-height: 1.3;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .pricing > .container > p {
+            text-align: center;
+            color: var(--gray-500);
+            font-size: 1rem;
+            max-width: 480px;
+            margin: 0 auto 3.5rem;
+            line-height: 1.7;
+        }
+
+        .pricing-cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            max-width: 720px;
+            margin: 0 auto;
+        }
+
+        .pricing-card {
+            background: var(--white);
+            border: 1px solid var(--gray-100);
+            border-radius: 10px;
+            padding: 2.5rem;
+        }
+
+        .pricing-card.featured {
+            border-color: var(--black);
+        }
+
+        .pricing-badge {
+            font-size: 0.6875rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            background: var(--black);
+            color: var(--white);
+            padding: 0.25rem 0.625rem;
+            border-radius: 3px;
+            display: inline-block;
+            margin-bottom: 1.25rem;
+        }
+
+        .pricing-card h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .pricing-card .price {
+            font-family: var(--serif);
+            font-size: 2.25rem;
+            font-weight: 400;
+            margin-bottom: 0.25rem;
+        }
+
+        .pricing-card .price-note {
+            font-size: 0.8125rem;
+            color: var(--gray-500);
+            margin-bottom: 1.5rem;
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .pricing-features li {
+            font-size: 0.875rem;
+            color: var(--gray-600);
+            padding: 0.375rem 0;
+            padding-left: 1.25rem;
+            position: relative;
+        }
+
+        .pricing-features li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.75rem;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: var(--gray-300);
+        }
+
+        .pricing-card.featured .pricing-features li::before {
+            background: var(--black);
+        }
+
+        .pricing-card .btn-primary {
+            width: 100%;
+        }
+
+        .pricing-card .btn-outline {
+            width: 100%;
+            background: transparent;
+            color: var(--black);
+            border: 1px solid var(--gray-200);
+            padding: 0.8125rem 2rem;
+            border-radius: 6px;
+            font-size: 0.9375rem;
+        }
+
+        .pricing-card .btn-outline:hover {
+            border-color: var(--black);
+        }
+
+        /* ── FINAL CTA ── */
+        .final-cta {
+            padding: 8rem 2rem;
+            text-align: center;
+        }
+
+        .final-cta h2 {
+            font-family: var(--serif);
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 400;
+            line-height: 1.2;
+            max-width: 560px;
+            margin: 0 auto 1.25rem;
+        }
+
+        .final-cta h2 em {
+            font-style: italic;
+        }
+
+        .final-cta p {
+            color: var(--gray-500);
+            font-size: 1.0625rem;
+            margin-bottom: 2.5rem;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .final-cta-actions {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        /* ── FOOTER ── */
+        footer {
+            border-top: 1px solid var(--gray-100);
+            padding: 3rem 2rem;
+        }
+
+        .footer-content {
+            max-width: 1120px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-left {
+            font-size: 0.8125rem;
+            color: var(--gray-400);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .footer-links a {
+            font-size: 0.8125rem;
+            color: var(--gray-400);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--black);
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 900px) {
+            .hero .container {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .hero-visual {
+                order: -1;
+            }
+
+            .hero-gallery {
+                max-width: 400px;
+                margin: 0 auto;
+            }
+
+            .problem-grid,
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .benefits-grid {
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
+            }
+
+            .solution-flow {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .solution-arrow {
+                transform: rotate(90deg);
+                margin: 0;
+            }
+
+            .store-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .pricing-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            section {
+                padding: 4rem 1.25rem;
+            }
+
+            nav {
+                padding: 1rem 1.25rem;
+            }
+
+            .nav-links a:not(.btn-nav) {
+                display: none;
+            }
+
+            .hero {
+                min-height: auto;
+                padding-top: 7rem;
+                padding-bottom: 4rem;
+            }
+
+            .hero-cta {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            .step-item {
+                grid-template-columns: 48px 1fr;
+                gap: 1.25rem;
+            }
+
+            .step-number {
+                font-size: 2rem;
+            }
+
+            .store-content {
+                padding: 1.5rem;
+            }
+
+            .store-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 0.5rem;
+            }
+
+            .final-cta-actions {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                gap: 1.5rem;
+                text-align: center;
+            }
+        }
+
+        /* ── ANIMATIONS ── */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- All content is rendered from content.json -->
+    <div id="app"></div>
+
+    <script>
+        // SVG icons for solution steps
+        const STEP_ICONS = [
+            '<svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 16v-8m0 0l-3 3m3-3l3 3M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>',
+            '<svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M13.5 21v-7.5a.75.75 0 01.75-.75h3a.75.75 0 01.75.75V21m-4.5 0H2.36m11.14 0H18m0 0h3.64m-1.39 0V9.349m-16.5 11.65V9.35m0 0a3.001 3.001 0 003.75-.615A2.993 2.993 0 009.75 9.75c.896 0 1.7-.393 2.25-1.016a2.993 2.993 0 002.25 1.016c.896 0 1.7-.393 2.25-1.016a3.001 3.001 0 003.75.614m-16.5 0a3.004 3.004 0 01-.621-4.72L4.318 3.44A1.5 1.5 0 015.378 3h13.243a1.5 1.5 0 011.06.44l1.19 1.189a3 3 0 01-.621 4.72m-13.5 8.65h3.75a.75.75 0 00.75-.75V13.5a.75.75 0 00-.75-.75H6.75a.75.75 0 00-.75.75v3.15c0 .415.336.75.75.75z"/></svg>',
+            '<svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75M15 10.5a3 3 0 11-6 0 3 3 0 016 0zm3 0h.008v.008H18V10.5zm-12 0h.008v.008H6V10.5z"/></svg>',
+            '<svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0H6.375c-.621 0-1.125-.504-1.125-1.125V14.25m0 0V5.625c0-.621.504-1.125 1.125-1.125h11.25c.621 0 1.125.504 1.125 1.125v11.25m-18 0h18"/></svg>'
+        ];
+
+        // Room scene templates (visual-only, not from JSON)
+        const ROOM_TEMPLATES = [
+            { class: 'room-1', frames: 2 },
+            { class: 'room-3 tall', frames: 3 },
+            { class: 'room-2', frames: 1 }
+        ];
+
+        fetch('content.json')
+            .then(r => r.json())
+            .then(render);
+
+        function render(c) {
+            document.getElementById('app').innerHTML = `
+            <!-- NAV -->
+            <nav>
+                <a href="#" class="logo">${c.nav.logo}</a>
+                <div class="nav-links">
+                    <a href="#how">${c.nav.links[0]}</a>
+                    <a href="#pricing">${c.nav.links[1]}</a>
+                    <a href="#" class="btn btn-nav">${c.nav.cta}</a>
+                </div>
+            </nav>
+
+            <!-- HERO -->
+            <section class="hero">
+                <div class="container">
+                    <div class="hero-text">
+                        <h1>${c.hero.title}</h1>
+                        <p>${c.hero.subtitle}</p>
+                        <div class="hero-cta">
+                            <a href="#" class="btn btn-primary">${c.hero.cta_primary}</a>
+                            <a href="#how" class="btn btn-secondary">${c.hero.cta_secondary}</a>
+                        </div>
+                    </div>
+                    <div class="hero-visual">
+                        <div class="hero-gallery">
+                            ${c.hero.photos.map((p, i) => `
+                            <div class="photo photo-${i + 1}">
+                                <div class="photo-inner"></div>
+                                <span class="photo-label">${p.label}</span>
+                            </div>`).join('')}
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- PROBLEM -->
+            <section class="problem">
+                <div class="container">
+                    <span class="section-label">${c.problem.label}</span>
+                    <h2>${c.problem.title}</h2>
+                    <div class="problem-grid">
+                        ${c.problem.cards.map(card => `
+                        <div class="problem-card fade-in">
+                            <h3>${card.title}</h3>
+                            <p>${card.text}</p>
+                        </div>`).join('')}
+                    </div>
+                </div>
+            </section>
+
+            <!-- SOLUTION -->
+            <section class="solution">
+                <div class="container">
+                    <span class="section-label">${c.solution.label}</span>
+                    <h2>${c.solution.title}</h2>
+                    <p>${c.solution.subtitle}</p>
+                    <div class="solution-flow fade-in">
+                        ${c.solution.steps.map((s, i) => `
+                        ${i > 0 ? '<span class="solution-arrow">&rarr;</span>' : ''}
+                        <div class="solution-step">
+                            <div class="step-icon">${STEP_ICONS[i]}</div>
+                            <h4>${s.title}</h4>
+                            <p>${s.text}</p>
+                        </div>`).join('')}
+                    </div>
+                </div>
+            </section>
+
+            <!-- HOW IT WORKS -->
+            <section class="how" id="how">
+                <div class="container">
+                    <span class="section-label">${c.how.label}</span>
+                    <h2>${c.how.title}</h2>
+                    <div class="steps-list">
+                        ${c.how.steps.map((s, i) => `
+                        <div class="step-item fade-in">
+                            <span class="step-number">${String(i + 1).padStart(2, '0')}</span>
+                            <div class="step-content">
+                                <h3>${s.title}</h3>
+                                <p>${s.text}</p>
+                            </div>
+                        </div>`).join('')}
+                    </div>
+                </div>
+            </section>
+
+            <!-- BENEFITS -->
+            <section class="benefits">
+                <div class="container">
+                    <span class="section-label">${c.benefits.label}</span>
+                    <h2>${c.benefits.title}</h2>
+                    <div class="benefits-grid">
+                        ${c.benefits.items.map(b => `
+                        <div class="benefit fade-in">
+                            <h3>${b.title}</h3>
+                            <p>${b.text}</p>
+                        </div>`).join('')}
+                    </div>
+                </div>
+            </section>
+
+            <!-- TESTIMONIALS -->
+            <section class="testimonials">
+                <div class="container">
+                    <span class="section-label">${c.testimonials.label}</span>
+                    <h2>${c.testimonials.title}</h2>
+                    <div class="testimonials-grid">
+                        ${c.testimonials.items.map(t => `
+                        <div class="testimonial fade-in">
+                            <blockquote>${t.quote}</blockquote>
+                            <div class="testimonial-author">
+                                <div class="testimonial-avatar"></div>
+                                <div>
+                                    <div class="testimonial-name">${t.name}</div>
+                                    <div class="testimonial-role">${t.role}</div>
+                                </div>
+                            </div>
+                        </div>`).join('')}
+                    </div>
+                </div>
+            </section>
+
+            <!-- STORE PREVIEW -->
+            <section class="preview">
+                <div class="container">
+                    <span class="section-label">${c.store_preview.label}</span>
+                    <h2>${c.store_preview.title}</h2>
+                    <p>${c.store_preview.subtitle}</p>
+                    <div class="store-mockup fade-in">
+                        <div class="store-browser-bar">
+                            <span class="browser-dot"></span>
+                            <span class="browser-dot"></span>
+                            <span class="browser-dot"></span>
+                            <span class="browser-url">${c.store_preview.store_url}</span>
+                        </div>
+                        <div class="store-content">
+                            <div class="store-header">
+                                <h3>${c.store_preview.store_name}</h3>
+                                <p>${c.store_preview.store_tagline}</p>
+                            </div>
+                            <div class="store-grid">
+                                ${c.store_preview.items.map(item => `
+                                <div class="store-item">
+                                    <div class="store-item-inner"></div>
+                                    <div class="store-item-label">
+                                        <span class="store-item-title">${item.title}</span>
+                                        <span class="store-item-price">${item.price}</span>
+                                    </div>
+                                </div>`).join('')}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- IN ROOM -->
+            <section class="in-room">
+                <div class="container">
+                    <span class="section-label">${c.in_room.label}</span>
+                    <h2>${c.in_room.title}</h2>
+                    <p>${c.in_room.subtitle}</p>
+                    <div class="room-grid">
+                        ${c.in_room.rooms.map((room, i) => {
+                            const tmpl = ROOM_TEMPLATES[i];
+                            const frames = Array(tmpl.frames).fill('<div class="wall-frame"><div class="frame-image"></div></div>').join('');
+                            return `
+                            <div class="room-scene ${tmpl.class} fade-in">
+                                <div class="room-wall">
+                                    ${frames}
+                                    <div class="room-furniture"></div>
+                                </div>
+                                <span class="room-caption">${room.caption}</span>
+                            </div>`;
+                        }).join('')}
+                    </div>
+                </div>
+            </section>
+
+            <!-- PRICING -->
+            <section class="pricing" id="pricing">
+                <div class="container">
+                    <span class="section-label">${c.pricing.label}</span>
+                    <h2>${c.pricing.title}</h2>
+                    <p>${c.pricing.subtitle}</p>
+                    <div class="pricing-cards">
+                        ${c.pricing.plans.map(plan => `
+                        <div class="pricing-card${plan.featured ? ' featured' : ''}">
+                            ${plan.badge ? `<span class="pricing-badge">${plan.badge}</span>` : ''}
+                            <h3>${plan.name}</h3>
+                            <div class="price">${plan.price}</div>
+                            <div class="price-note">${plan.period}</div>
+                            <ul class="pricing-features">
+                                ${plan.features.map(f => `<li>${f}</li>`).join('')}
+                            </ul>
+                            <a href="#" class="btn ${plan.featured ? 'btn-primary' : 'btn-outline'}">${plan.cta}</a>
+                        </div>`).join('')}
+                    </div>
+                </div>
+            </section>
+
+            <!-- FINAL CTA -->
+            <section class="final-cta">
+                <div class="container--narrow">
+                    <h2>${c.final_cta.title}</h2>
+                    <p>${c.final_cta.subtitle}</p>
+                    <div class="final-cta-actions">
+                        <a href="#" class="btn btn-primary">${c.final_cta.cta_primary}</a>
+                        <a href="#" class="btn btn-secondary">${c.final_cta.cta_secondary}</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- FOOTER -->
+            <footer>
+                <div class="footer-content">
+                    <div class="footer-left">${c.footer.copyright}</div>
+                    <div class="footer-links">
+                        ${c.footer.links.map(l => `<a href="#">${l}</a>`).join('')}
+                    </div>
+                </div>
+            </footer>`;
+
+            // Init scroll animations
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) entry.target.classList.add('visible');
+                });
+            }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+            document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+            // Nav border on scroll
+            const nav = document.querySelector('nav');
+            window.addEventListener('scroll', () => {
+                nav.classList.toggle('scrolled', window.scrollY > 20);
+            }, { passive: true });
+        }
+    </script>
+</body>
+</html>

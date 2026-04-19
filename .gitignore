@@ -17,3 +17,7 @@ npm-debug.log*
 
 # Netlify
 .netlify/
+
+# Large image sources (exceed GitHub 100MB limit)
+portfolios/**/*.tif
+portfolios/**/*.tiff

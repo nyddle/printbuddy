@@ -1,0 +1,30 @@
+{
+  "artist": {
+    "name": "Zhukova",
+    "name_short": "ZHUKOVA",
+    "tagline": "Selected work · 2024–2026",
+    "location": "Работы 2024–2026",
+    "bio_short": "Избранные работы.",
+    "bio_long": "Избранные работы 2024—2026. Печатаются на архивной бумаге, подписываются и нумеруются от руки.",
+    "email": "hello@zhukova.photo",
+    "hero_title": "Кадры <em>о&nbsp;быте</em>,<br>и немного рядом.",
+    "hero_title_plain": "Кадры о быте, и немного рядом.",
+    "series_title": "Selected"
+  },
+  "_note": "Titles, prices and locations are placeholders — edit as needed. Screenshots (Снимок экрана ...) are listed at the end; remove if they weren't meant to be here.",
+  "photos": [
+    { "file": "DSCF0098 копия.jpg",              "title": "DSCF 0098",   "location": "2024", "year": "2024", "price": "3 000 ₽" },
+    { "file": "DSCF0153 копия.jpg",              "title": "DSCF 0153",   "location": "2024", "year": "2024", "price": "3 000 ₽" },
+    { "file": "DSCF1313 -web-done-final.jpg",    "title": "DSCF 1313",   "location": "2024", "year": "2024", "price": "3 200 ₽" },
+    { "file": "cooking book-копия.jpg",          "title": "Cooking book","location": "2025", "year": "2025", "price": "3 200 ₽" },
+    { "file": "done -11.jpg",                    "title": "Done 11",     "location": "2025", "year": "2025", "price": "3 000 ₽" },
+    { "file": "red april-web.jpg",               "title": "Red April",   "location": "2025", "year": "2025", "price": "3 400 ₽" },
+    { "file": "web-2801.jpg",                    "title": "2801",        "location": "2025", "year": "2025", "price": "2 800 ₽" },
+    { "file": "Скан 8-3-web.jpg",                "title": "Скан 8-3",    "location": "2025", "year": "2025", "price": "2 800 ₽" },
+    { "file": "холодос коллаж.jpg",              "title": "Холодос (коллаж)", "location": "2026", "year": "2026", "price": "3 600 ₽" },
+    { "file": "Снимок экрана 2024-09-12 в 00.59.41.png", "title": "Экран · сентябрь", "location": "2024", "year": "2024", "price": "2 600 ₽" },
+    { "file": "Снимок экрана 2025-09-21 в 23.54.15.png", "title": "Экран · сентябрь", "location": "2025", "year": "2025", "price": "2 600 ₽" },
+    { "file": "Снимок экрана 2025-10-04 в 16.42.15.png", "title": "Экран · октябрь",  "location": "2025", "year": "2025", "price": "2 600 ₽" },
+    { "file": "Снимок экрана 2026-04-19 в 23.49.05.png", "title": "Экран · апрель",   "location": "2026", "year": "2026", "price": "2 600 ₽" }
+  ]
+}

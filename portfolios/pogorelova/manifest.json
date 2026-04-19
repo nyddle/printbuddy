@@ -1,0 +1,25 @@
+{
+  "artist": {
+    "name": "Olga Pogorelova",
+    "name_short": "Olga Pogorelova",
+    "tagline": "Urban rhythm · still light",
+    "location": "Moscow · 2019–2024",
+    "bio_short": "Фотограф из Москвы. Снимает городскую пластику и тихое время.",
+    "bio_long": "Избранные работы 2019—2024. Печатаю на Hahnemühle Photo Rag, подписываю и нумерую от руки. Тираж каждого принта — 15 экземпляров.",
+    "email": "studio@pogorelova.photo",
+    "hero_title": "Городские тишины,<br>и то, что <em>между ними</em>.",
+    "hero_title_plain": "Городские тишины, и то, что между ними.",
+    "series_title": "City Quiet"
+  },
+  "photos": [
+    { "file": "4f36792d-47f4-40b8-b3b8-d7749cc5604e_rw_1920.jpg", "title": "Перекрёсток, зима", "location": "Москва · 2023", "year": "2023", "price": "3 200 ₽", "price_num": 3200 },
+    { "file": "5926184d-bd03-4f92-acd6-c395bc65e363_rw_1920.jpg", "title": "Двор, после снега",  "location": "Москва · 2022", "year": "2022", "price": "2 800 ₽", "price_num": 2800 },
+    { "file": "5b67354d-3076-49b4-8d0a-2debd890422f_rw_1920.jpg", "title": "Окно, вечер",        "location": "Москва · 2023", "year": "2023", "price": "3 500 ₽", "price_num": 3500 },
+    { "file": "73283ed7-1261-4ca6-b48f-5be502f09ad7_rw_1920.jpg", "title": "Тени на фасаде",     "location": "Москва · 2021", "year": "2021", "price": "2 600 ₽", "price_num": 2600 },
+    { "file": "87add642-fe2c-42d8-b7f5-b3bdcf9a1322_rw_1920.jpg", "title": "Пустая остановка",   "location": "Москва · 2022", "year": "2022", "price": "2 800 ₽", "price_num": 2800 },
+    { "file": "964d03fb-d3f5-4bee-984e-793c9757ae5f_rw_1920.jpg", "title": "Утро, Пречистенка",  "location": "Москва · 2024", "year": "2024", "price": "3 000 ₽", "price_num": 3000 },
+    { "file": "b5611b25-af6a-4c27-86fd-53b9e58fa8a7_rw_1920.jpg", "title": "Весна, бетон",       "location": "Москва · 2023", "year": "2023", "price": "3 400 ₽", "price_num": 3400 },
+    { "file": "cabb49a6-170e-4e94-bb28-1960d165fae6_rw_1920.jpg", "title": "Метро, воскресенье", "location": "Москва · 2020", "year": "2020", "price": "2 900 ₽", "price_num": 2900 },
+    { "file": "f5eb7534-9a61-479a-8a95-39b48a3c1548_rw_1920.jpg", "title": "Свет в проёме",      "location": "Москва · 2024", "year": "2024", "price": "3 100 ₽", "price_num": 3100 }
+  ]
+}

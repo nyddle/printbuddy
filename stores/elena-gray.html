@@ -353,7 +353,7 @@
 <body>
 
     <header>
-        <div class="brand">Elena Gray</div>
+        <div class="brand" data-field="name">Elena Gray</div>
         <nav class="nav-right">
             <a href="#catalogue">Каталог</a>
             <a href="#about">О серии</a>
@@ -364,15 +364,15 @@
     <section class="cover">
         <div class="cover-left">
             <div class="issue">Issue № 04 · Autumn 2024</div>
-            <h1>Long Way<br><em>Home</em></h1>
-            <div class="byline">Photographs by Elena Gray · Рязанская область, 2019–2023</div>
+            <h1 data-field-html="hero_title">Long Way<br><em>Home</em></h1>
+            <div class="byline">Photographs by <span data-field="name">Elena Gray</span> · <span data-field="location">Рязанская область, 2019–2023</span></div>
         </div>
-        <div class="cover-image"></div>
+        <div class="cover-image" data-photo-slot="0"></div>
     </section>
 
     <section class="statement" id="about">
         <div class="label">От автора</div>
-        <p>Четыре года я возвращалась в одну деревню. Снимала одних и тех же людей. Менялся свет, менялись лица, менялась я.</p>
+        <p data-field="bio_long">Четыре года я возвращалась в одну деревню. Снимала одних и тех же людей. Менялся свет, менялись лица, менялась я.</p>
         <p>Это семь фотографий из серии «Long Way Home». Они печатаются на матовой бумаге плотностью 310 г/м², нумеруются и подписываются от руки. Тираж каждого принта ограничен пятнадцатью экземплярами.</p>
     </section>
 
@@ -383,69 +383,69 @@
         </div>
 
         <div class="plates">
-            <div class="plate size-l pl1 wide">
+            <div class="plate size-l pl1 wide" data-photo-card>
                 <div class="plate-number">I</div>
-                <div class="plate-image"><div class="inner"></div></div>
+                <div class="plate-image"><div class="inner" data-photo-slot="1"></div></div>
                 <div class="plate-info">
-                    <span class="plate-title">Окно, январь</span>
-                    <span class="plate-price">от 4 200 ₽</span>
+                    <span class="plate-title" data-photo-title="1">Окно, январь</span>
+                    <span class="plate-price" data-photo-price="1">от 4 200 ₽</span>
                     <span class="plate-caption">Первая фотография серии. Снята на 35mm, Kodak Tri-X 400, проявлена вручную.</span>
                 </div>
             </div>
 
-            <div class="plate size-m pl2">
+            <div class="plate size-m pl2" data-photo-card>
                 <div class="plate-number">II</div>
-                <div class="plate-image"><div class="inner"></div></div>
+                <div class="plate-image"><div class="inner" data-photo-slot="2"></div></div>
                 <div class="plate-info">
-                    <span class="plate-title">Зинаида</span>
-                    <span class="plate-price">4 500 ₽</span>
+                    <span class="plate-title" data-photo-title="2">Зинаида</span>
+                    <span class="plate-price" data-photo-price="2">4 500 ₽</span>
                     <span class="plate-caption">Портрет. Позировать не умела, поэтому смотрела мимо.</span>
                 </div>
             </div>
 
-            <div class="plate size-s pl3 tall">
+            <div class="plate size-s pl3 tall" data-photo-card>
                 <div class="plate-number">III</div>
-                <div class="plate-image"><div class="inner"></div></div>
+                <div class="plate-image"><div class="inner" data-photo-slot="3"></div></div>
                 <div class="plate-info">
-                    <span class="plate-title">Двор</span>
-                    <span class="plate-price">3 800 ₽</span>
+                    <span class="plate-title" data-photo-title="3">Двор</span>
+                    <span class="plate-price" data-photo-price="3">3 800 ₽</span>
                 </div>
             </div>
 
-            <div class="plate size-s pl4">
+            <div class="plate size-s pl4" data-photo-card>
                 <div class="plate-number">IV</div>
-                <div class="plate-image"><div class="inner"></div></div>
+                <div class="plate-image"><div class="inner" data-photo-slot="4"></div></div>
                 <div class="plate-info">
-                    <span class="plate-title">После дождя</span>
-                    <span class="plate-price">3 800 ₽</span>
+                    <span class="plate-title" data-photo-title="4">После дождя</span>
+                    <span class="plate-price" data-photo-price="4">3 800 ₽</span>
                 </div>
             </div>
 
-            <div class="plate size-s pl5 tall">
+            <div class="plate size-s pl5 tall" data-photo-card>
                 <div class="plate-number">V</div>
-                <div class="plate-image"><div class="inner"></div></div>
+                <div class="plate-image"><div class="inner" data-photo-slot="5"></div></div>
                 <div class="plate-info">
-                    <span class="plate-title">Ваня</span>
-                    <span class="plate-price">4 100 ₽</span>
+                    <span class="plate-title" data-photo-title="5">Ваня</span>
+                    <span class="plate-price" data-photo-price="5">4 100 ₽</span>
                 </div>
             </div>
 
-            <div class="plate size-full pl6 wide">
+            <div class="plate size-full pl6 wide" data-photo-card>
                 <div class="plate-number">VI</div>
-                <div class="plate-image"><div class="inner"></div></div>
+                <div class="plate-image"><div class="inner" data-photo-slot="6"></div></div>
                 <div class="plate-info">
-                    <span class="plate-title">Дорога назад</span>
-                    <span class="plate-price">от 5 200 ₽</span>
+                    <span class="plate-title" data-photo-title="6">Дорога назад</span>
+                    <span class="plate-price" data-photo-price="6">от 5 200 ₽</span>
                     <span class="plate-caption">Самая большая печать в серии. Существует в форматах 40×60 и 60×90.</span>
                 </div>
             </div>
 
-            <div class="plate size-m pl7">
+            <div class="plate size-m pl7" data-photo-card>
                 <div class="plate-number">VII</div>
-                <div class="plate-image"><div class="inner"></div></div>
+                <div class="plate-image"><div class="inner" data-photo-slot="7"></div></div>
                 <div class="plate-info">
-                    <span class="plate-title">Последний кадр</span>
-                    <span class="plate-price">4 500 ₽</span>
+                    <span class="plate-title" data-photo-title="7">Последний кадр</span>
+                    <span class="plate-price" data-photo-price="7">4 500 ₽</span>
                     <span class="plate-caption">Снят в день, когда я уехала. Больше не возвращалась.</span>
                 </div>
             </div>
@@ -483,9 +483,10 @@
     </section>
 
     <footer>
-        <div>© Elena Gray · <a href="mailto:elena@gray.photo">elena@gray.photo</a></div>
+        <div>© <span data-field="name">Elena Gray</span> · <a data-field="email" href="mailto:elena@gray.photo">elena@gray.photo</a></div>
         <div class="powered">powered by <a href="/">PrintBuddy</a></div>
     </footer>
 
+    <script src="/js/portfolio-loader.js"></script>
 </body>
 </html>

@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolios — Preview in themes — PrintBuddy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #fafafa;
+            --panel: #f0efeb;
+            --ink: #0a0a0a;
+            --muted: #7a7a7a;
+            --line: #e0ddd5;
+            --accent: #0055ff;
+            --sans: 'Inter', -apple-system, sans-serif;
+            --mono: 'JetBrains Mono', monospace;
+            --serif: 'Playfair Display', serif;
+        }
+
+        html { font-size: 15px; -webkit-font-smoothing: antialiased; }
+
+        body {
+            font-family: var(--sans);
+            background: var(--bg);
+            color: var(--ink);
+            line-height: 1.55;
+        }
+
+        nav.top {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--line);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: var(--mono);
+            font-size: 0.75rem;
+        }
+
+        nav.top a { color: var(--ink); text-decoration: none; }
+        nav.top .back { color: var(--muted); }
+        nav.top .back:hover { color: var(--ink); }
+
+        .brand {
+            font-family: var(--sans);
+            font-weight: 600;
+            font-size: 1rem;
+            letter-spacing: -0.01em;
+        }
+
+        .intro {
+            padding: 3rem 1.5rem 2rem;
+            max-width: 960px;
+            margin: 0 auto;
+        }
+
+        .intro .label {
+            font-family: var(--mono);
+            font-size: 0.6875rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .intro h1 {
+            font-family: var(--serif);
+            font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+            font-weight: 400;
+            line-height: 1.2;
+            margin-bottom: 0.75rem;
+        }
+
+        .intro h1 em { font-style: italic; }
+
+        .intro p {
+            color: var(--muted);
+            max-width: 60ch;
+            font-size: 0.9375rem;
+        }
+
+        /* ── Portfolio block ── */
+        .portfolio {
+            padding: 3rem 1.5rem 5rem;
+            max-width: 1320px;
+            margin: 0 auto;
+            border-top: 1px solid var(--line);
+        }
+
+        .portfolio-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .portfolio-header h2 {
+            font-family: var(--serif);
+            font-size: 1.75rem;
+            font-weight: 400;
+        }
+
+        .portfolio-header .tag {
+            font-family: var(--mono);
+            font-size: 0.75rem;
+            color: var(--muted);
+            letter-spacing: 0.05em;
+        }
+
+        .portfolio-bio {
+            max-width: 60ch;
+            margin-bottom: 2rem;
+            color: var(--muted);
+            font-size: 0.9375rem;
+        }
+
+        /* ── Photos quick-look ── */
+        .photos {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 0.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .photos .thumb {
+            aspect-ratio: 3/4;
+            background-color: var(--panel);
+            background-size: cover;
+            background-position: center;
+            border-radius: 3px;
+        }
+
+        /* ── Themes grid ── */
+        .themes-label {
+            font-family: var(--mono);
+            font-size: 0.6875rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 1rem;
+        }
+
+        .themes {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 1rem;
+        }
+
+        .theme-card {
+            display: flex;
+            flex-direction: column;
+            text-decoration: none;
+            color: inherit;
+            background: var(--panel);
+            border-radius: 6px;
+            overflow: hidden;
+            transition: transform 0.2s ease;
+            position: relative;
+        }
+
+        .theme-card:hover { transform: translateY(-2px); }
+
+        .theme-card.disabled {
+            opacity: 0.45;
+            pointer-events: none;
+        }
+
+        .theme-iframe-wrap {
+            aspect-ratio: 4/3;
+            overflow: hidden;
+            background: #ddd;
+            position: relative;
+        }
+
+        .theme-iframe {
+            width: 1280px;
+            height: 960px;
+            border: 0;
+            transform: scale(0.203);
+            transform-origin: 0 0;
+            pointer-events: none;
+        }
+
+        .theme-meta {
+            padding: 0.875rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 0.5rem;
+        }
+
+        .theme-name {
+            font-weight: 500;
+            font-size: 0.9375rem;
+        }
+
+        .theme-status {
+            font-family: var(--mono);
+            font-size: 0.625rem;
+            color: var(--muted);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .theme-status.ready { color: #0a8f4a; }
+        .theme-status.soon { color: #a0a0a0; }
+
+        footer {
+            padding: 2rem 1.5rem;
+            border-top: 1px solid var(--line);
+            text-align: center;
+            font-family: var(--mono);
+            font-size: 0.6875rem;
+            color: var(--muted);
+            letter-spacing: 0.05em;
+        }
+
+        footer a { color: var(--accent); text-decoration: none; }
+
+        @media (max-width: 600px) {
+            .themes { grid-template-columns: 1fr; }
+            .theme-iframe-wrap { aspect-ratio: 16/9; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="top">
+        <a href="/" class="brand">PrintBuddy</a>
+        <a href="/" class="back">← главная</a>
+    </nav>
+
+    <section class="intro">
+        <div class="label">Preview / Internal</div>
+        <h1>Как работы смотрятся <em>в разных темах</em></h1>
+        <p>Загрузи папку с фотографиями в <code>/portfolios/&lt;name&gt;/</code>, опиши файлы в <code>manifest.json</code>, добавь портфолио в <code>PORTFOLIOS</code> ниже — получишь матрицу превью по всем темам.</p>
+    </section>
+
+    <div id="app"></div>
+
+    <footer>
+        Если тема недоступна — добавь в неё <code>data-photo-slot</code> и подключи <a href="/js/portfolio-loader.js">/js/portfolio-loader.js</a>.
+    </footer>
+
+    <script>
+        // ─────────────────────────────────────────────────────────
+        // Register new portfolios here:
+        const PORTFOLIOS = ['pogorelova'];
+
+        // Themes (all files in /stores/), with status:
+        // ready = instrumented with data-photo-slot and portfolio-loader.js
+        // soon  = shown in UI but not instrumented yet (click opens with
+        //         placeholder gradients instead of real photos)
+        const THEMES = [
+            { slug: 'anna-mori',       label: 'Anna Mori',       tag: 'Dark · minimal',     status: 'ready' },
+            { slug: 'anna-mori-light', label: 'Anna Mori — light', tag: 'Light · minimal',  status: 'ready' },
+            { slug: 'yui-sato',        label: 'Yui Sato',        tag: 'Gallery · minimal',  status: 'ready' },
+            { slug: 'elena-gray',      label: 'Elena Gray',      tag: 'Editorial · warm',   status: 'ready' },
+            { slug: 'kasper-noe',      label: 'Kasper Noé',      tag: 'Nordic · landscape', status: 'soon' },
+            { slug: 'mika-voss',       label: 'Mika Voss',       tag: 'Fashion · magazine', status: 'soon' },
+            { slug: 'paulo-reyes',     label: 'Paulo Reyes',     tag: 'Travel · polaroid',  status: 'soon' },
+            { slug: 'jonas-melchior',  label: 'Jonas Melchior',  tag: 'Skate · zine',       status: 'soon' },
+            { slug: 'ines-kovac',      label: 'Ines Kovač',      tag: 'Architecture',       status: 'soon' },
+            { slug: 'marcus-linden',   label: 'Marcus Linden',   tag: 'Analog · film',      status: 'soon' }
+        ];
+        // ─────────────────────────────────────────────────────────
+
+        async function renderAll() {
+            const app = document.getElementById('app');
+            for (const slug of PORTFOLIOS) {
+                try {
+                    const res = await fetch(`/portfolios/${slug}/manifest.json`);
+                    const data = await res.json();
+                    app.insertAdjacentHTML('beforeend', renderPortfolio(slug, data));
+                } catch (err) {
+                    app.insertAdjacentHTML('beforeend', `<section class="portfolio"><h2>${slug}</h2><p style="color:#c13">❌ failed to load manifest.json: ${err.message}</p></section>`);
+                }
+            }
+        }
+
+        function renderPortfolio(slug, data) {
+            const artist = data.artist || {};
+            const photos = data.photos || [];
+
+            const thumbs = photos.map(p => `
+                <div class="thumb" style="background-image:url('/portfolios/${slug}/${p.file}')" title="${p.title || ''}"></div>
+            `).join('');
+
+            const themeCards = THEMES.map(t => {
+                const url = `/stores/${t.slug}.html?portfolio=${encodeURIComponent(slug)}`;
+                const statusClass = t.status === 'ready' ? 'ready' : 'soon';
+                const statusLabel = t.status === 'ready' ? '● live preview' : '○ placeholders';
+                return `
+                <a href="${url}" target="_blank" rel="noopener" class="theme-card">
+                    <div class="theme-iframe-wrap">
+                        <iframe class="theme-iframe" src="${url}" loading="lazy" scrolling="no" tabindex="-1"></iframe>
+                    </div>
+                    <div class="theme-meta">
+                        <div>
+                            <div class="theme-name">${t.label}</div>
+                            <div class="theme-status ${statusClass}">${t.tag} · ${statusLabel}</div>
+                        </div>
+                    </div>
+                </a>`;
+            }).join('');
+
+            return `
+            <section class="portfolio">
+                <div class="portfolio-header">
+                    <h2>${artist.name || slug}</h2>
+                    <span class="tag">${photos.length} фото · /portfolios/${slug}/</span>
+                </div>
+                <p class="portfolio-bio">${artist.bio_short || ''}</p>
+                <div class="photos">${thumbs}</div>
+                <div class="themes-label">Превью по темам</div>
+                <div class="themes">${themeCards}</div>
+            </section>`;
+        }
+
+        renderAll();
+    </script>
+</body>
+</html>

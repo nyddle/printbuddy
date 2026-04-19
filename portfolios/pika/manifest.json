@@ -1,0 +1,31 @@
+{
+  "artist": {
+    "name": "Pika",
+    "name_short": "PIKA",
+    "tagline": "Selected work · 2022–2025",
+    "location": "Работы 2022–2025",
+    "bio_short": "Избранные работы.",
+    "bio_long": "Избранные работы. Печать на архивной бумаге Hahnemühle Photo Rag, подписываются и нумеруются от руки. Сделаю под заказ, тираж каждого принта ограничен.",
+    "email": "hello@pika.photo",
+    "hero_title": "Избранные кадры,<br><em>сделанные медленно</em>.",
+    "hero_title_plain": "Избранные кадры, сделанные медленно.",
+    "series_title": "Selected"
+  },
+  "_note": "Files with FAV in the name are listed first as the artist's own picks. 13 FAV.tif is intentionally excluded — browsers can't render TIFF natively, and the source file is 327 MB.",
+  "photos": [
+    { "file": "2 _FAV.jpeg", "title": "—",            "location": "2024", "year": "2024", "price": "3 200 ₽" },
+    { "file": "3FAV.png",    "title": "—",            "location": "2024", "year": "2024", "price": "3 200 ₽" },
+    { "file": "6FAV.jpeg",   "title": "—",            "location": "2024", "year": "2024", "price": "3 400 ₽" },
+    { "file": "7FAV.jpeg",   "title": "—",            "location": "2024", "year": "2024", "price": "3 400 ₽" },
+    { "file": "10FAV.jpeg",  "title": "—",            "location": "2023", "year": "2023", "price": "3 200 ₽" },
+    { "file": "1.png",       "title": "Untitled 01",  "location": "2023", "year": "2023", "price": "2 800 ₽" },
+    { "file": "2.png",       "title": "Untitled 02",  "location": "2023", "year": "2023", "price": "2 800 ₽" },
+    { "file": "4.jpg",       "title": "Untitled 04",  "location": "2022", "year": "2022", "price": "2 600 ₽" },
+    { "file": "5.jpg",       "title": "Untitled 05",  "location": "2022", "year": "2022", "price": "2 600 ₽" },
+    { "file": "8.jpeg",      "title": "Untitled 08",  "location": "2023", "year": "2023", "price": "2 800 ₽" },
+    { "file": "9.jpeg",      "title": "Untitled 09",  "location": "2023", "year": "2023", "price": "2 800 ₽" },
+    { "file": "11.jpeg",     "title": "Untitled 11",  "location": "2024", "year": "2024", "price": "2 900 ₽" },
+    { "file": "12.jpeg",     "title": "Untitled 12",  "location": "2024", "year": "2024", "price": "2 900 ₽" },
+    { "file": "14.png",      "title": "Untitled 14",  "location": "2025", "year": "2025", "price": "3 000 ₽" }
+  ]
+}

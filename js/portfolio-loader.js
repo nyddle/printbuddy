@@ -57,7 +57,8 @@
       if (card) card.style.display = 'none';
       return;
     }
-    const url = `/portfolios/${name}/${photo.file}`;
+    // encodeURI handles spaces and unicode in filenames, preserves "/"
+    const url = `/portfolios/${encodeURIComponent(name)}/${encodeURI(photo.file)}`;
     // clear any "fake" gradient background first
     el.style.background = `url("${url}") center/cover no-repeat`;
   });

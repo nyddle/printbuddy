@@ -251,7 +251,7 @@
     <script>
         // ─────────────────────────────────────────────────────────
         // Register new portfolios here:
-        const PORTFOLIOS = ['pogorelova'];
+        const PORTFOLIOS = ['pogorelova', 'pika'];
 
         // Themes (all files in /stores/), with status:
         // ready = instrumented with data-photo-slot and portfolio-loader.js
@@ -288,9 +288,10 @@
             const artist = data.artist || {};
             const photos = data.photos || [];
 
-            const thumbs = photos.map(p => `
-                <div class="thumb" style="background-image:url('/portfolios/${slug}/${p.file}')" title="${p.title || ''}"></div>
-            `).join('');
+            const thumbs = photos.map(p => {
+                const url = `/portfolios/${encodeURIComponent(slug)}/${encodeURI(p.file)}`;
+                return `<div class="thumb" style="background-image:url('${url}')" title="${p.title || ''}"></div>`;
+            }).join('');
 
             const themeCards = THEMES.map(t => {
                 const url = `/stores/${t.slug}.html?portfolio=${encodeURIComponent(slug)}`;

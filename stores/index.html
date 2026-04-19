@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Примеры магазинов — PrintBuddy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --black: #0a0a0a;
+            --white: #fafafa;
+            --gray-100: #e8e8e8;
+            --gray-200: #d4d4d4;
+            --gray-400: #a0a0a0;
+            --gray-500: #737373;
+            --gray-600: #525252;
+            --serif: 'Playfair Display', Georgia, serif;
+            --sans: 'Inter', -apple-system, sans-serif;
+        }
+
+        html { font-size: 16px; -webkit-font-smoothing: antialiased; }
+
+        body {
+            background: var(--white);
+            color: var(--black);
+            font-family: var(--sans);
+            line-height: 1.6;
+        }
+
+        nav {
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid var(--gray-100);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-weight: 600;
+            font-size: 1.125rem;
+            text-decoration: none;
+            color: var(--black);
+            letter-spacing: -0.02em;
+        }
+
+        nav a.back {
+            font-size: 0.875rem;
+            color: var(--gray-600);
+            text-decoration: none;
+        }
+
+        nav a.back:hover { color: var(--black); }
+
+        .hero {
+            padding: 6rem 2rem 3rem;
+            text-align: center;
+            max-width: 760px;
+            margin: 0 auto;
+        }
+
+        .hero .label {
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--gray-400);
+            margin-bottom: 1.5rem;
+        }
+
+        .hero h1 {
+            font-family: var(--serif);
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 400;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+
+        .hero h1 em { font-style: italic; }
+
+        .hero p {
+            color: var(--gray-500);
+            font-size: 1.0625rem;
+        }
+
+        .examples {
+            padding: 3rem 2rem 6rem;
+            max-width: 1280px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2.5rem 2rem;
+        }
+
+        .example {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .example:hover { transform: translateY(-4px); }
+
+        .example-preview {
+            aspect-ratio: 4/3;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 1.25rem;
+            border: 1px solid var(--gray-100);
+            position: relative;
+        }
+
+        .example-tag {
+            font-size: 0.6875rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--gray-400);
+            margin-bottom: 0.5rem;
+        }
+
+        .example h2 {
+            font-family: var(--serif);
+            font-size: 1.5rem;
+            font-weight: 400;
+            margin-bottom: 0.375rem;
+        }
+
+        .example h2 em { font-style: italic; }
+
+        .example p {
+            color: var(--gray-500);
+            font-size: 0.9375rem;
+            line-height: 1.55;
+        }
+
+        /* ── Thumbnail styles per store ── */
+
+        /* 1. Anna Mori — dark minimal */
+        .ex-anna { background: #0e0e0e; }
+        .ex-anna::before {
+            content: 'ANNA MORI · PRINTS';
+            position: absolute;
+            top: 1rem; left: 1.25rem;
+            font-family: 'Inter', monospace;
+            font-size: 0.625rem;
+            color: #f0f0f0;
+            letter-spacing: 0.05em;
+        }
+        .ex-anna::after {
+            content: '';
+            position: absolute;
+            top: 3rem; left: 1.25rem; right: 1.25rem; bottom: 1.25rem;
+            background:
+                linear-gradient(160deg, #1a1a1a, #3a3a3a 40%, #151515) top left/31% 48% no-repeat,
+                linear-gradient(200deg, #2a2a2a, #4a4a4a 30%, #1e1e1e) 34.5% top/31% 48% no-repeat,
+                linear-gradient(140deg, #111, #2f2f2f 50%, #1a1a1a) top right/31% 48% no-repeat,
+                linear-gradient(180deg, #2a2a2a, #1a1a1a 40%, #3a3a3a) bottom left/31% 48% no-repeat,
+                linear-gradient(210deg, #333, #151515 60%, #444) 34.5% bottom/31% 48% no-repeat,
+                linear-gradient(120deg, #1e1e1e, #404040 40%, #1a1a1a) bottom right/31% 48% no-repeat;
+        }
+
+        /* 2. Elena Gray — warm editorial */
+        .ex-elena { background: #f4f1ec; }
+        .ex-elena::before {
+            content: 'Elena Gray';
+            position: absolute;
+            top: 1rem; left: 1.25rem;
+            font-family: 'Playfair Display', serif;
+            font-size: 0.875rem;
+            color: #1a1a18;
+        }
+        .ex-elena::after {
+            content: '';
+            position: absolute;
+            top: 2.75rem; left: 1.25rem; right: 1.25rem; bottom: 1.25rem;
+            background:
+                linear-gradient(180deg, #6b5d4a, #3d342a 40%, #1e1812) left top/45% 100% no-repeat,
+                linear-gradient(170deg, #4a3f32, #2a2218 60%, #15100a) 48% top/52% 48% no-repeat,
+                linear-gradient(160deg, #5a4d3c, #2e261e 50%, #1a1510) 48% 52%/25% 48% no-repeat,
+                linear-gradient(190deg, #2e2820, #4a3f32 40%, #1a1510) 74.5% 52%/25.5% 48% no-repeat;
+        }
+
+        /* 3. Kasper Noé — nordic cold */
+        .ex-kasper {
+            background: linear-gradient(180deg, #8697a0 0%, #4a5862 45%, #2a3640 100%);
+        }
+        .ex-kasper::before {
+            content: 'Kasper Noé';
+            position: absolute;
+            top: 1rem; left: 1.25rem;
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 0.875rem;
+            color: #fff;
+            opacity: 0.85;
+        }
+        .ex-kasper::after {
+            content: 'The North, in silence.';
+            position: absolute;
+            bottom: 1.25rem; left: 1.25rem; right: 1.25rem;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.125rem;
+            color: #fff;
+            line-height: 1.1;
+        }
+
+        /* 4. Mika Voss — fashion editorial */
+        .ex-mika {
+            background: #f7f5f0;
+            display: flex;
+        }
+        .ex-mika::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 0; bottom: 0;
+            width: 55%;
+            background: linear-gradient(180deg, #d6443a 0%, #8a1e15 50%, #3a0a06 100%);
+        }
+        .ex-mika::after {
+            content: 'NEW\A FACES';
+            white-space: pre;
+            position: absolute;
+            top: 50%;
+            right: 0.75rem;
+            transform: translateY(-50%);
+            text-align: right;
+            width: 43%;
+            font-family: 'Playfair Display', serif;
+            font-weight: 900;
+            font-size: 1.5rem;
+            line-height: 0.9;
+            color: #0a0a0a;
+            letter-spacing: -0.02em;
+            text-transform: uppercase;
+        }
+
+        /* 5. Paulo Reyes — travel warm */
+        .ex-paulo { background: #f5ede0; }
+        .ex-paulo::before {
+            content: 'Paulo Reyes — field notes';
+            position: absolute;
+            top: 1rem; left: 1.25rem;
+            font-family: 'Playfair Display', serif;
+            font-size: 0.8125rem;
+            color: #2a1f14;
+        }
+        .ex-paulo::after {
+            content: '';
+            position: absolute;
+            top: 2.75rem; left: 1.25rem; right: 1.25rem; bottom: 1.25rem;
+            background:
+                linear-gradient(160deg, #e8a860, #c87840 50%, #6a3820) top left/52% 100% no-repeat,
+                linear-gradient(190deg, #c07848, #704028 60%, #2a1208) 54% top/22% 48% no-repeat,
+                linear-gradient(180deg, #8aa87a, #4a6838 50%, #1a2810) 77% top/22% 48% no-repeat,
+                linear-gradient(170deg, #d89860, #8a5030 50%, #3a1808) 54% 52%/46% 48% no-repeat;
+        }
+
+        /* 6. Yui Sato — gallery minimal */
+        .ex-yui {
+            background: #fdfcfa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .ex-yui::before {
+            content: 'Yui Sato';
+            position: absolute;
+            top: 1rem; left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 0.8125rem;
+            color: #111;
+        }
+        .ex-yui::after {
+            content: '';
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40%;
+            aspect-ratio: 4/5;
+            background: #e8e6e1;
+            padding: 0;
+            box-shadow:
+                0 1px 3px rgba(0,0,0,0.04),
+                0 12px 40px rgba(0,0,0,0.12);
+            border: 8px solid #fff;
+        }
+
+        .footer-cta {
+            border-top: 1px solid var(--gray-100);
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .footer-cta h3 {
+            font-family: var(--serif);
+            font-size: 1.75rem;
+            font-weight: 400;
+            margin-bottom: 1rem;
+        }
+
+        .footer-cta h3 em { font-style: italic; }
+
+        .btn {
+            display: inline-block;
+            background: var(--black);
+            color: var(--white);
+            padding: 0.8125rem 2rem;
+            border-radius: 6px;
+            font-size: 0.9375rem;
+            font-weight: 500;
+            text-decoration: none;
+            margin-top: 1rem;
+            transition: transform 0.2s;
+        }
+
+        .btn:hover { transform: translateY(-1px); }
+
+        @media (max-width: 900px) {
+            .examples { grid-template-columns: repeat(2, 1fr); padding: 2rem 1.5rem 4rem; gap: 2rem 1.5rem; }
+            .hero { padding: 4rem 1.25rem 2rem; }
+        }
+
+        @media (max-width: 560px) {
+            .examples { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="/" class="logo">PrintBuddy</a>
+        <a href="/" class="back">← На главную</a>
+    </nav>
+
+    <section class="hero">
+        <div class="label">Примеры магазинов</div>
+        <h1>Каждый магазин — <em>свой</em></h1>
+        <p>Мы не навязываем шаблон. Фотограф выбирает настроение, мы делаем страницу, которая ему соответствует.</p>
+    </section>
+
+    <section class="examples">
+
+        <a href="anna-mori.html" class="example">
+            <div class="example-preview ex-anna"></div>
+            <div class="example-tag">Tokyo street · minimal</div>
+            <h2>Anna Mori</h2>
+            <p>Тёмная плотная сетка, моноширинная типографика. Ночной Токио и ранний свет.</p>
+        </a>
+
+        <a href="elena-gray.html" class="example">
+            <div class="example-preview ex-elena"></div>
+            <div class="example-tag">Documentary · editorial</div>
+            <h2>Elena Gray</h2>
+            <p>Тёплый фон, классический серифный шрифт. Документальная серия с авторским текстом.</p>
+        </a>
+
+        <a href="kasper-noe.html" class="example">
+            <div class="example-preview ex-kasper"></div>
+            <div class="example-tag">Landscape · nordic</div>
+            <h2>Kasper Noé</h2>
+            <p>Холодная палитра, огромная обложка во весь экран, одна фотография за раз.</p>
+        </a>
+
+        <a href="mika-voss.html" class="example">
+            <div class="example-preview ex-mika"></div>
+            <div class="example-tag">Fashion · magazine</div>
+            <h2>Mika Voss</h2>
+            <p>Контрастная обложка как у журнала. Жирный Bodoni, красный акцент, плотная сетка портретов.</p>
+        </a>
+
+        <a href="paulo-reyes.html" class="example">
+            <div class="example-preview ex-paulo"></div>
+            <div class="example-tag">Travel · field notes</div>
+            <h2>Paulo Reyes</h2>
+            <p>Тёплые земляные тона, снимки-полароиды, группировка по поездкам. Рукописный акцент.</p>
+        </a>
+
+        <a href="yui-sato.html" class="example">
+            <div class="example-preview ex-yui"></div>
+            <div class="example-tag">Fine art · gallery</div>
+            <h2>Yui Sato</h2>
+            <p>Много воздуха, одна работа на экране. Как страницы выставочного каталога.</p>
+        </a>
+
+    </section>
+
+    <section class="footer-cta">
+        <h3>Хочешь <em>такой</em> же?</h3>
+        <a href="/" class="btn">Создать свой магазин</a>
+    </section>
+
+</body>
+</html>

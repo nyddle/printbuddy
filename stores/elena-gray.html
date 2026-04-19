@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elena Gray — Prints</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #f4f1ec;
+            --paper: #ebe6de;
+            --ink: #1a1a18;
+            --muted: #6b6760;
+            --line: #cfc8bc;
+            --serif: 'Cormorant Garamond', Georgia, serif;
+            --sans: 'Inter', -apple-system, sans-serif;
+        }
+
+        html { font-size: 16px; -webkit-font-smoothing: antialiased; }
+
+        body {
+            background: var(--bg);
+            color: var(--ink);
+            font-family: var(--sans);
+            font-weight: 400;
+            line-height: 1.65;
+        }
+
+        /* ── TOP BAR ── */
+        header {
+            padding: 1.5rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--line);
+            font-size: 0.8125rem;
+        }
+
+        .brand {
+            font-family: var(--serif);
+            font-size: 1.25rem;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+        }
+
+        .nav-right {
+            display: flex;
+            gap: 2rem;
+            color: var(--muted);
+        }
+
+        .nav-right a {
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 0.8125rem;
+            transition: color 0.2s;
+        }
+
+        .nav-right a:hover { color: var(--ink); }
+
+        /* ── COVER ── */
+        .cover {
+            padding: 5rem 3rem 3rem;
+            display: grid;
+            grid-template-columns: 1.1fr 1fr;
+            gap: 4rem;
+            align-items: end;
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .cover-left .issue {
+            font-family: var(--sans);
+            font-size: 0.6875rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .cover-left h1 {
+            font-family: var(--serif);
+            font-size: clamp(3rem, 6vw, 5.5rem);
+            font-weight: 400;
+            line-height: 0.95;
+            letter-spacing: -0.02em;
+            margin-bottom: 1.5rem;
+        }
+
+        .cover-left h1 em {
+            font-style: italic;
+            font-weight: 300;
+        }
+
+        .cover-left .byline {
+            font-size: 0.875rem;
+            color: var(--muted);
+            font-style: italic;
+        }
+
+        .cover-image {
+            aspect-ratio: 4/5;
+            background: linear-gradient(180deg, #6b5d4a 0%, #3d342a 40%, #1e1812 100%);
+            position: relative;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+        }
+
+        .cover-image::after {
+            content: 'Plate I';
+            position: absolute;
+            bottom: -2rem;
+            right: 0;
+            font-family: var(--serif);
+            font-style: italic;
+            font-size: 0.875rem;
+            color: var(--muted);
+        }
+
+        /* ── STATEMENT ── */
+        .statement {
+            padding: 5rem 3rem;
+            max-width: 820px;
+            margin: 0 auto;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .statement .label {
+            font-size: 0.6875rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .statement p {
+            font-family: var(--serif);
+            font-size: 1.5rem;
+            line-height: 1.5;
+            font-weight: 400;
+            color: var(--ink);
+            letter-spacing: -0.005em;
+        }
+
+        .statement p + p {
+            margin-top: 1.25rem;
+            font-size: 1rem;
+            font-family: var(--sans);
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        /* ── CATALOGUE ── */
+        .catalogue {
+            padding: 5rem 3rem;
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .catalogue-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 3rem;
+        }
+
+        .catalogue-header h2 {
+            font-family: var(--serif);
+            font-size: 2rem;
+            font-weight: 400;
+        }
+
+        .catalogue-header .count {
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        /* Editorial mixed grid */
+        .plates {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 2rem 1.5rem;
+        }
+
+        .plate {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .plate.size-l { grid-column: span 7; }
+        .plate.size-m { grid-column: span 5; }
+        .plate.size-s { grid-column: span 4; }
+        .plate.size-full { grid-column: span 8; grid-column-start: 3; }
+
+        .plate-image {
+            aspect-ratio: 4/5;
+            background: #2a2520;
+            margin-bottom: 1rem;
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.4s ease;
+        }
+
+        .plate.wide .plate-image { aspect-ratio: 3/2; }
+        .plate.tall .plate-image { aspect-ratio: 2/3; }
+
+        .plate-image:hover {
+            transform: translateY(-4px);
+        }
+
+        .plate-image .inner {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Warm documentary-toned gradients */
+        .pl1 .inner { background: linear-gradient(170deg, #4a3f32 0%, #2a2218 60%, #15100a 100%); }
+        .pl2 .inner { background: linear-gradient(200deg, #3d3528 0%, #1e1810 70%, #2e2720 100%); }
+        .pl3 .inner { background: linear-gradient(140deg, #5a4d3c 0%, #2e261e 50%, #1a1510 100%); }
+        .pl4 .inner { background: linear-gradient(190deg, #2e2820 0%, #4a3f32 40%, #1a1510 100%); }
+        .pl5 .inner { background: linear-gradient(160deg, #6b5d4a 0%, #3d342a 50%, #1e1812 100%); }
+        .pl6 .inner { background: linear-gradient(220deg, #3a3124 0%, #1e1812 80%, #4a3f32 100%); }
+        .pl7 .inner { background: linear-gradient(180deg, #2a2218 0%, #5a4d3c 40%, #15100a 100%); }
+
+        .plate-info {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 0.5rem 1rem;
+            align-items: baseline;
+        }
+
+        .plate-title {
+            font-family: var(--serif);
+            font-size: 1.25rem;
+            font-weight: 400;
+            font-style: italic;
+            line-height: 1.2;
+        }
+
+        .plate-price {
+            font-size: 0.875rem;
+            color: var(--ink);
+            white-space: nowrap;
+        }
+
+        .plate-caption {
+            grid-column: 1 / -1;
+            font-size: 0.8125rem;
+            color: var(--muted);
+            line-height: 1.5;
+            max-width: 42ch;
+        }
+
+        .plate-number {
+            font-family: var(--serif);
+            font-style: italic;
+            font-size: 0.75rem;
+            color: var(--muted);
+            margin-bottom: 0.375rem;
+            letter-spacing: 0.05em;
+        }
+
+        /* ── SIZES & DETAILS ── */
+        .details {
+            padding: 5rem 3rem;
+            max-width: 820px;
+            margin: 0 auto;
+            border-top: 1px solid var(--line);
+        }
+
+        .details h3 {
+            font-family: var(--serif);
+            font-size: 1.5rem;
+            font-weight: 400;
+            margin-bottom: 1.5rem;
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .detail {
+            border-top: 1px solid var(--line);
+            padding-top: 1rem;
+        }
+
+        .detail dt {
+            font-size: 0.6875rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .detail dd {
+            font-family: var(--serif);
+            font-size: 1.125rem;
+            font-style: italic;
+        }
+
+        /* ── FOOTER ── */
+        footer {
+            background: var(--paper);
+            padding: 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8125rem;
+            color: var(--muted);
+        }
+
+        footer a {
+            color: var(--muted);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: var(--ink);
+        }
+
+        .powered {
+            font-family: var(--serif);
+            font-style: italic;
+            font-size: 0.75rem;
+        }
+
+        @media (max-width: 900px) {
+            header { padding: 1rem 1.5rem; }
+            .cover { grid-template-columns: 1fr; padding: 3rem 1.5rem; gap: 2.5rem; }
+            .statement, .catalogue, .details { padding: 3rem 1.5rem; }
+            footer { padding: 2rem 1.5rem; }
+            .plate.size-l, .plate.size-m, .plate.size-s, .plate.size-full {
+                grid-column: span 12;
+                grid-column-start: auto;
+            }
+            .details-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 600px) {
+            .nav-right { gap: 1rem; }
+            footer { flex-direction: column; gap: 1rem; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="brand">Elena Gray</div>
+        <nav class="nav-right">
+            <a href="#catalogue">Каталог</a>
+            <a href="#about">О серии</a>
+            <a href="#">Корзина · 0</a>
+        </nav>
+    </header>
+
+    <section class="cover">
+        <div class="cover-left">
+            <div class="issue">Issue № 04 · Autumn 2024</div>
+            <h1>Long Way<br><em>Home</em></h1>
+            <div class="byline">Photographs by Elena Gray · Рязанская область, 2019–2023</div>
+        </div>
+        <div class="cover-image"></div>
+    </section>
+
+    <section class="statement" id="about">
+        <div class="label">От автора</div>
+        <p>Четыре года я возвращалась в одну деревню. Снимала одних и тех же людей. Менялся свет, менялись лица, менялась я.</p>
+        <p>Это семь фотографий из серии «Long Way Home». Они печатаются на матовой бумаге плотностью 310 г/м², нумеруются и подписываются от руки. Тираж каждого принта ограничен пятнадцатью экземплярами.</p>
+    </section>
+
+    <section class="catalogue" id="catalogue">
+        <div class="catalogue-header">
+            <h2>Каталог</h2>
+            <span class="count">07 работ · тираж 15</span>
+        </div>
+
+        <div class="plates">
+            <div class="plate size-l pl1 wide">
+                <div class="plate-number">I</div>
+                <div class="plate-image"><div class="inner"></div></div>
+                <div class="plate-info">
+                    <span class="plate-title">Окно, январь</span>
+                    <span class="plate-price">от 4 200 ₽</span>
+                    <span class="plate-caption">Первая фотография серии. Снята на 35mm, Kodak Tri-X 400, проявлена вручную.</span>
+                </div>
+            </div>
+
+            <div class="plate size-m pl2">
+                <div class="plate-number">II</div>
+                <div class="plate-image"><div class="inner"></div></div>
+                <div class="plate-info">
+                    <span class="plate-title">Зинаида</span>
+                    <span class="plate-price">4 500 ₽</span>
+                    <span class="plate-caption">Портрет. Позировать не умела, поэтому смотрела мимо.</span>
+                </div>
+            </div>
+
+            <div class="plate size-s pl3 tall">
+                <div class="plate-number">III</div>
+                <div class="plate-image"><div class="inner"></div></div>
+                <div class="plate-info">
+                    <span class="plate-title">Двор</span>
+                    <span class="plate-price">3 800 ₽</span>
+                </div>
+            </div>
+
+            <div class="plate size-s pl4">
+                <div class="plate-number">IV</div>
+                <div class="plate-image"><div class="inner"></div></div>
+                <div class="plate-info">
+                    <span class="plate-title">После дождя</span>
+                    <span class="plate-price">3 800 ₽</span>
+                </div>
+            </div>
+
+            <div class="plate size-s pl5 tall">
+                <div class="plate-number">V</div>
+                <div class="plate-image"><div class="inner"></div></div>
+                <div class="plate-info">
+                    <span class="plate-title">Ваня</span>
+                    <span class="plate-price">4 100 ₽</span>
+                </div>
+            </div>
+
+            <div class="plate size-full pl6 wide">
+                <div class="plate-number">VI</div>
+                <div class="plate-image"><div class="inner"></div></div>
+                <div class="plate-info">
+                    <span class="plate-title">Дорога назад</span>
+                    <span class="plate-price">от 5 200 ₽</span>
+                    <span class="plate-caption">Самая большая печать в серии. Существует в форматах 40×60 и 60×90.</span>
+                </div>
+            </div>
+
+            <div class="plate size-m pl7">
+                <div class="plate-number">VII</div>
+                <div class="plate-image"><div class="inner"></div></div>
+                <div class="plate-info">
+                    <span class="plate-title">Последний кадр</span>
+                    <span class="plate-price">4 500 ₽</span>
+                    <span class="plate-caption">Снят в день, когда я уехала. Больше не возвращалась.</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="details">
+        <h3>Детали печати</h3>
+        <dl class="details-grid">
+            <div class="detail">
+                <dt>Бумага</dt>
+                <dd>Hahnemühle Matt FineArt, 310 г/м²</dd>
+            </div>
+            <div class="detail">
+                <dt>Форматы</dt>
+                <dd>30×40, 40×60, 60×90 см</dd>
+            </div>
+            <div class="detail">
+                <dt>Тираж</dt>
+                <dd>15 экземпляров</dd>
+            </div>
+            <div class="detail">
+                <dt>Подпись</dt>
+                <dd>Номер и подпись от руки</dd>
+            </div>
+            <div class="detail">
+                <dt>Сроки</dt>
+                <dd>10–14 дней на печать</dd>
+            </div>
+            <div class="detail">
+                <dt>Доставка</dt>
+                <dd>СДЭК, DHL по миру</dd>
+            </div>
+        </dl>
+    </section>
+
+    <footer>
+        <div>© Elena Gray · <a href="mailto:elena@gray.photo">elena@gray.photo</a></div>
+        <div class="powered">powered by <a href="/">PrintBuddy</a></div>
+    </footer>
+
+</body>
+</html>

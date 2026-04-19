@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paulo Reyes — Field Notes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500&family=Caveat:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #f5ede0;
+            --paper: #ebe0cc;
+            --ink: #2a1f14;
+            --warm: #c87840;
+            --muted: #8a7a64;
+            --line: #d4c4a8;
+            --serif: 'DM Serif Display', Georgia, serif;
+            --sans: 'DM Sans', -apple-system, sans-serif;
+            --hand: 'Caveat', cursive;
+        }
+
+        html { font-size: 16px; -webkit-font-smoothing: antialiased; }
+
+        body {
+            background: var(--bg);
+            color: var(--ink);
+            font-family: var(--sans);
+            font-weight: 400;
+            line-height: 1.65;
+        }
+
+        /* ── HEADER ── */
+        header {
+            padding: 1.5rem 2.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand {
+            display: flex;
+            align-items: baseline;
+            gap: 0.5rem;
+        }
+
+        .brand .name {
+            font-family: var(--serif);
+            font-size: 1.375rem;
+        }
+
+        .brand .note {
+            font-family: var(--hand);
+            font-size: 1rem;
+            color: var(--warm);
+            transform: rotate(-2deg);
+        }
+
+        nav {
+            display: flex;
+            gap: 1.75rem;
+            font-size: 0.875rem;
+        }
+
+        nav a { color: var(--ink); text-decoration: none; }
+        nav a:hover { color: var(--warm); }
+
+        /* ── HERO ── */
+        .hero {
+            padding: 4rem 2.5rem 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .hero h1 {
+            font-family: var(--serif);
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-weight: 400;
+            line-height: 1.05;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.01em;
+        }
+
+        .hero h1 .hand {
+            font-family: var(--hand);
+            color: var(--warm);
+            font-size: 1.1em;
+            display: inline-block;
+            transform: rotate(-2deg);
+        }
+
+        .hero p {
+            font-size: 1.125rem;
+            color: var(--muted);
+            max-width: 48ch;
+            line-height: 1.7;
+        }
+
+        .hero-photo {
+            aspect-ratio: 4/5;
+            background: linear-gradient(180deg, #e8a860 0%, #c87840 40%, #6a3820 100%);
+            position: relative;
+            box-shadow: 0 12px 30px rgba(90,50,20,0.15);
+        }
+
+        .hero-photo::before {
+            content: 'Oaxaca, March 2024';
+            position: absolute;
+            top: -0.5rem;
+            left: 1rem;
+            background: var(--bg);
+            padding: 0.125rem 0.75rem;
+            font-family: var(--hand);
+            font-size: 1rem;
+            color: var(--warm);
+            transform: rotate(-1deg);
+        }
+
+        .hero-photo::after {
+            content: '📍';
+            position: absolute;
+            bottom: 1rem;
+            right: 1rem;
+            font-size: 1.25rem;
+        }
+
+        /* ── TRIPS (grouped by location) ── */
+        .trips {
+            padding: 4rem 2.5rem 6rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .trip {
+            margin-bottom: 5rem;
+        }
+
+        .trip-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px dashed var(--line);
+        }
+
+        .trip-title {
+            display: flex;
+            align-items: baseline;
+            gap: 1rem;
+        }
+
+        .trip-title h2 {
+            font-family: var(--serif);
+            font-size: 2rem;
+            font-weight: 400;
+        }
+
+        .trip-title .pin {
+            font-family: var(--hand);
+            font-size: 1.25rem;
+            color: var(--warm);
+        }
+
+        .trip-date {
+            font-size: 0.875rem;
+            color: var(--muted);
+            font-style: italic;
+        }
+
+        .trip-intro {
+            font-family: var(--serif);
+            font-size: 1.25rem;
+            max-width: 60ch;
+            margin-bottom: 2rem;
+            color: #4a3520;
+            line-height: 1.5;
+        }
+
+        .trip-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 1.25rem;
+        }
+
+        .polaroid {
+            background: #fff;
+            padding: 0.5rem 0.5rem 2.5rem;
+            box-shadow: 0 6px 18px rgba(90,50,20,0.1);
+            transition: transform 0.3s;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .polaroid:nth-child(3n-1) { transform: rotate(1.5deg); }
+        .polaroid:nth-child(3n)   { transform: rotate(-1deg); }
+
+        .polaroid:hover {
+            transform: rotate(0) translateY(-4px);
+            z-index: 2;
+        }
+
+        .polaroid-image {
+            aspect-ratio: 3/2;
+            width: 100%;
+        }
+
+        .polaroid.tall .polaroid-image { aspect-ratio: 3/4; }
+
+        .polaroid .caption {
+            position: absolute;
+            bottom: 0.5rem;
+            left: 0.75rem;
+            right: 0.75rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+        }
+
+        .polaroid .caption .name {
+            font-family: var(--hand);
+            font-size: 1.0625rem;
+            color: var(--ink);
+        }
+
+        .polaroid .caption .price {
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--warm);
+        }
+
+        /* Trip 1 — Mexico */
+        .mx1 { background: linear-gradient(160deg, #e8a860 0%, #c87840 50%, #6a3820 100%); }
+        .mx2 { background: linear-gradient(200deg, #d68a3a 0%, #8a4a20 60%, #3a1808 100%); }
+        .mx3 { background: linear-gradient(180deg, #e89650 0%, #a85828 50%, #4a2010 100%); }
+
+        /* Trip 2 — Morocco */
+        .ma1 { background: linear-gradient(170deg, #d89860 0%, #8a5030 50%, #3a1808 100%); }
+        .ma2 { background: linear-gradient(190deg, #c07848 0%, #704028 60%, #2a1208 100%); }
+        .ma3 { background: linear-gradient(140deg, #e0a070 0%, #945a30 50%, #4a2010 100%); }
+
+        /* Trip 3 — Vietnam */
+        .vn1 { background: linear-gradient(180deg, #8aa87a 0%, #4a6838 50%, #1a2810 100%); }
+        .vn2 { background: linear-gradient(210deg, #a0b890 0%, #587048 40%, #2a3818 100%); }
+        .vn3 { background: linear-gradient(160deg, #c0b088 0%, #7a6848 50%, #3a2818 100%); }
+
+        /* ── NOTE ── */
+        .note {
+            background: var(--paper);
+            padding: 4rem 2.5rem;
+            text-align: center;
+        }
+
+        .note .handwritten {
+            font-family: var(--hand);
+            font-size: clamp(1.5rem, 3vw, 2.25rem);
+            color: var(--ink);
+            max-width: 600px;
+            margin: 0 auto 1.5rem;
+            line-height: 1.3;
+        }
+
+        .note .sig {
+            font-family: var(--hand);
+            font-size: 1.75rem;
+            color: var(--warm);
+            transform: rotate(-3deg);
+            display: inline-block;
+        }
+
+        /* ── FOOTER ── */
+        footer {
+            padding: 2rem 2.5rem;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8125rem;
+            color: var(--muted);
+            border-top: 1px dashed var(--line);
+        }
+
+        footer a { color: var(--muted); text-decoration: none; }
+        footer a:hover { color: var(--warm); }
+
+        @media (max-width: 800px) {
+            .hero { grid-template-columns: 1fr; padding: 2rem 1.5rem; gap: 2rem; }
+            .trips { padding: 2rem 1.5rem 4rem; }
+            .trip-grid { grid-template-columns: 1fr; gap: 2rem; }
+            .polaroid { transform: none !important; }
+            header { padding: 1.25rem 1.5rem; }
+            nav { gap: 1rem; font-size: 0.8125rem; }
+            footer { padding: 1.5rem; flex-direction: column; gap: 0.5rem; }
+            .trip-head { flex-direction: column; gap: 0.5rem; align-items: flex-start; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="brand">
+            <span class="name">Paulo Reyes</span>
+            <span class="note">— field notes</span>
+        </div>
+        <nav>
+            <a href="#trips">Trips</a>
+            <a href="#">Journal</a>
+            <a href="#">Cart · 0</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div>
+            <h1>Three years, eleven countries, <span class="hand">one camera.</span></h1>
+            <p>Photographs I took while figuring out how to be a stranger well. Sold as signed prints, grouped by the place they came from.</p>
+        </div>
+        <div class="hero-photo"></div>
+    </section>
+
+    <section class="trips" id="trips">
+
+        <div class="trip">
+            <div class="trip-head">
+                <div class="trip-title">
+                    <h2>Mexico</h2>
+                    <span class="pin">— two weeks, a borrowed car</span>
+                </div>
+                <span class="trip-date">February — March 2024</span>
+            </div>
+            <p class="trip-intro">I didn't plan much. Drove Oaxaca → San Cristóbal, stopped at every taqueria that looked honest.</p>
+            <div class="trip-grid">
+                <div class="polaroid">
+                    <div class="polaroid-image mx1"></div>
+                    <div class="caption">
+                        <span class="name">market morning</span>
+                        <span class="price">$120</span>
+                    </div>
+                </div>
+                <div class="polaroid tall">
+                    <div class="polaroid-image mx2"></div>
+                    <div class="caption">
+                        <span class="name">fences</span>
+                        <span class="price">$90</span>
+                    </div>
+                </div>
+                <div class="polaroid tall">
+                    <div class="polaroid-image mx3"></div>
+                    <div class="caption">
+                        <span class="name">late sun</span>
+                        <span class="price">$90</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="trip">
+            <div class="trip-head">
+                <div class="trip-title">
+                    <h2>Morocco</h2>
+                    <span class="pin">— by train, mostly</span>
+                </div>
+                <span class="trip-date">October 2023</span>
+            </div>
+            <p class="trip-intro">Tangier, Fez, Marrakech. Got lost twice a day. Best month of the year, probably.</p>
+            <div class="trip-grid">
+                <div class="polaroid">
+                    <div class="polaroid-image ma1"></div>
+                    <div class="caption">
+                        <span class="name">medina, 6pm</span>
+                        <span class="price">$130</span>
+                    </div>
+                </div>
+                <div class="polaroid tall">
+                    <div class="polaroid-image ma2"></div>
+                    <div class="caption">
+                        <span class="name">blue door</span>
+                        <span class="price">$95</span>
+                    </div>
+                </div>
+                <div class="polaroid tall">
+                    <div class="polaroid-image ma3"></div>
+                    <div class="caption">
+                        <span class="name">tea</span>
+                        <span class="price">$85</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="trip">
+            <div class="trip-head">
+                <div class="trip-title">
+                    <h2>Vietnam</h2>
+                    <span class="pin">— slowly, with a bike</span>
+                </div>
+                <span class="trip-date">May — June 2023</span>
+            </div>
+            <p class="trip-intro">Hanoi to Hoi An on a very old motorbike. Rained for fourteen days. I have never eaten better.</p>
+            <div class="trip-grid">
+                <div class="polaroid">
+                    <div class="polaroid-image vn1"></div>
+                    <div class="caption">
+                        <span class="name">rice fields, monsoon</span>
+                        <span class="price">$120</span>
+                    </div>
+                </div>
+                <div class="polaroid tall">
+                    <div class="polaroid-image vn2"></div>
+                    <div class="caption">
+                        <span class="name">mo's kitchen</span>
+                        <span class="price">$90</span>
+                    </div>
+                </div>
+                <div class="polaroid tall">
+                    <div class="polaroid-image vn3"></div>
+                    <div class="caption">
+                        <span class="name">last bridge</span>
+                        <span class="price">$90</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <section class="note">
+        <p class="handwritten">Every print ships with a short, handwritten note from where it was taken.</p>
+        <span class="sig">— Paulo</span>
+    </section>
+
+    <footer>
+        <span>© Paulo Reyes · writing you from Lisbon</span>
+        <span>powered by <a href="/">PrintBuddy</a></span>
+    </footer>
+
+</body>
+</html>

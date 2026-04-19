@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yui Sato — Works on Paper</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #fdfcfa;
+            --ink: #111;
+            --muted: #888;
+            --line: #e8e6e1;
+            --serif: 'EB Garamond', Georgia, serif;
+            --sans: 'Inter', -apple-system, sans-serif;
+        }
+
+        html { font-size: 16px; -webkit-font-smoothing: antialiased; }
+
+        body {
+            background: var(--bg);
+            color: var(--ink);
+            font-family: var(--sans);
+            font-weight: 300;
+            line-height: 1.7;
+        }
+
+        /* ── NAV — very sparse ── */
+        nav {
+            padding: 2.5rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .brand {
+            font-family: var(--serif);
+            font-size: 1rem;
+            font-style: italic;
+            letter-spacing: 0.05em;
+            text-transform: none;
+        }
+
+        nav .links {
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        nav a {
+            color: var(--ink);
+            text-decoration: none;
+            opacity: 0.6;
+            transition: opacity 0.2s;
+        }
+
+        nav a:hover { opacity: 1; }
+
+        /* ── TITLE — lots of air ── */
+        .title {
+            padding: 14rem 3rem 10rem;
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .title .meta {
+            font-size: 0.6875rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 3rem;
+        }
+
+        .title h1 {
+            font-family: var(--serif);
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 400;
+            line-height: 1.15;
+            letter-spacing: -0.01em;
+            margin-bottom: 4rem;
+        }
+
+        .title h1 em { font-style: italic; }
+
+        .title .desc {
+            font-family: var(--serif);
+            font-size: 1.25rem;
+            font-style: italic;
+            color: #333;
+            max-width: 52ch;
+            margin: 0 auto;
+            line-height: 1.55;
+        }
+
+        .title .rule {
+            width: 1px;
+            height: 60px;
+            background: var(--ink);
+            margin: 5rem auto 0;
+        }
+
+        /* ── WORKS — one at a time, centered ── */
+        .works {
+            padding: 0 0 10rem;
+        }
+
+        .work {
+            padding: 8rem 3rem;
+            max-width: 1100px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .work-frame {
+            display: inline-block;
+            padding: 2rem;
+            background: #fff;
+            box-shadow:
+                0 1px 3px rgba(0,0,0,0.04),
+                0 20px 60px rgba(0,0,0,0.08);
+            margin-bottom: 3rem;
+            cursor: pointer;
+            transition: transform 0.5s ease;
+        }
+
+        .work-frame:hover { transform: translateY(-6px); }
+
+        .work-image {
+            width: 100%;
+            max-width: 600px;
+            aspect-ratio: 4/5;
+            display: block;
+        }
+
+        .work.wide .work-image { aspect-ratio: 3/2; max-width: 800px; }
+        .work.square .work-image { aspect-ratio: 1/1; }
+
+        .y1 { background: #e8e6e1; }
+        .y2 { background: linear-gradient(180deg, #f0eee8 0%, #c8c5bd 50%, #8a8680 100%); }
+        .y3 { background: linear-gradient(90deg, #2a2824 0%, #888580 100%); }
+        .y4 { background: linear-gradient(180deg, #fdfcfa 0%, #e0ddd5 60%, #a0998a 100%); }
+        .y5 { background: #1a1a18; }
+        .y6 { background: linear-gradient(135deg, #d8d4ca 0%, #4a4640 100%); }
+
+        .work-info {
+            max-width: 440px;
+            margin: 0 auto;
+        }
+
+        .work-info .num {
+            font-family: var(--serif);
+            font-style: italic;
+            font-size: 0.875rem;
+            color: var(--muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .work-info h2 {
+            font-family: var(--serif);
+            font-size: 1.75rem;
+            font-weight: 400;
+            font-style: italic;
+            letter-spacing: -0.005em;
+            margin-bottom: 0.75rem;
+        }
+
+        .work-info .year {
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .work-info .spec {
+            font-size: 0.875rem;
+            color: var(--ink);
+            line-height: 1.7;
+            margin-bottom: 1.25rem;
+        }
+
+        .work-info .price {
+            display: inline-block;
+            font-family: var(--serif);
+            font-size: 1rem;
+            padding-bottom: 2px;
+            border-bottom: 1px solid var(--ink);
+            cursor: pointer;
+        }
+
+        .work-divider {
+            width: 40px;
+            height: 1px;
+            background: var(--line);
+            margin: 0 auto;
+        }
+
+        /* ── COLOPHON ── */
+        .colophon {
+            padding: 6rem 3rem 3rem;
+            max-width: 560px;
+            margin: 0 auto;
+            text-align: center;
+            border-top: 1px solid var(--line);
+        }
+
+        .colophon h3 {
+            font-family: var(--serif);
+            font-size: 1.125rem;
+            font-style: italic;
+            font-weight: 400;
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.05em;
+        }
+
+        .colophon p {
+            font-size: 0.9375rem;
+            color: #444;
+            line-height: 1.75;
+            margin-bottom: 1rem;
+        }
+
+        .colophon .contact {
+            margin-top: 2.5rem;
+            font-family: var(--serif);
+            font-style: italic;
+            font-size: 1rem;
+        }
+
+        .colophon .contact a {
+            color: var(--ink);
+            text-decoration: none;
+            border-bottom: 1px solid var(--line);
+            padding-bottom: 1px;
+        }
+
+        footer {
+            padding: 2.5rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.6875rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        footer a {
+            color: var(--muted);
+            text-decoration: none;
+            letter-spacing: 0.05em;
+            text-transform: none;
+            font-family: var(--serif);
+            font-style: italic;
+            font-size: 0.8125rem;
+        }
+
+        @media (max-width: 800px) {
+            nav { padding: 1.5rem; }
+            nav .links { gap: 1.25rem; }
+            .title { padding: 6rem 1.5rem 4rem; }
+            .work { padding: 4rem 1.5rem; }
+            .work-frame { padding: 1rem; }
+            .colophon { padding: 4rem 1.5rem 2rem; }
+            footer { padding: 1.5rem; flex-direction: column; gap: 0.75rem; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <span class="brand">Yui Sato</span>
+        <div class="links">
+            <a href="#works">Works</a>
+            <a href="#colophon">Colophon</a>
+            <a href="#">—</a>
+        </div>
+    </nav>
+
+    <section class="title">
+        <div class="meta">Solo Exhibition · Online · 2024 — 2025</div>
+        <h1>On <em>absence</em>,<br>and the shape it leaves.</h1>
+        <p class="desc">Six quiet photographs, made over eight years. Available as archival prints, in editions of six.</p>
+        <div class="rule"></div>
+    </section>
+
+    <section class="works" id="works">
+
+        <div class="work">
+            <div class="work-frame">
+                <div class="work-image y1"></div>
+            </div>
+            <div class="work-info">
+                <div class="num">№ 01</div>
+                <h2>White, in three parts</h2>
+                <div class="year">Kyoto · 2017</div>
+                <p class="spec">Archival pigment print on Awagami Kozo. 40 × 50 cm. Edition of 6.</p>
+                <a class="price" href="#">Inquire · ¥ 48,000</a>
+            </div>
+        </div>
+
+        <div class="work-divider"></div>
+
+        <div class="work wide">
+            <div class="work-frame">
+                <div class="work-image y2"></div>
+            </div>
+            <div class="work-info">
+                <div class="num">№ 02</div>
+                <h2>A room, after</h2>
+                <div class="year">Tokyo · 2019</div>
+                <p class="spec">Archival pigment print on Hahnemühle Photo Rag. 60 × 40 cm. Edition of 6.</p>
+                <a class="price" href="#">Inquire · ¥ 52,000</a>
+            </div>
+        </div>
+
+        <div class="work-divider"></div>
+
+        <div class="work square">
+            <div class="work-frame">
+                <div class="work-image y3"></div>
+            </div>
+            <div class="work-info">
+                <div class="num">№ 03</div>
+                <h2>Horizon, cut</h2>
+                <div class="year">Niigata · 2020</div>
+                <p class="spec">Gelatin silver print, selenium toned. 50 × 50 cm. Edition of 6.</p>
+                <a class="price" href="#">Inquire · ¥ 64,000</a>
+            </div>
+        </div>
+
+        <div class="work-divider"></div>
+
+        <div class="work">
+            <div class="work-frame">
+                <div class="work-image y4"></div>
+            </div>
+            <div class="work-info">
+                <div class="num">№ 04</div>
+                <h2>Curtain, breathing</h2>
+                <div class="year">Osaka · 2021</div>
+                <p class="spec">Archival pigment print on Awagami Kozo. 40 × 50 cm. Edition of 6.</p>
+                <a class="price" href="#">Inquire · ¥ 48,000</a>
+            </div>
+        </div>
+
+        <div class="work-divider"></div>
+
+        <div class="work wide">
+            <div class="work-frame">
+                <div class="work-image y5"></div>
+            </div>
+            <div class="work-info">
+                <div class="num">№ 05</div>
+                <h2>Night, without</h2>
+                <div class="year">Hakodate · 2023</div>
+                <p class="spec">Gelatin silver print. 60 × 40 cm. Edition of 6.</p>
+                <a class="price" href="#">Inquire · ¥ 58,000</a>
+            </div>
+        </div>
+
+        <div class="work-divider"></div>
+
+        <div class="work">
+            <div class="work-frame">
+                <div class="work-image y6"></div>
+            </div>
+            <div class="work-info">
+                <div class="num">№ 06</div>
+                <h2>Last study</h2>
+                <div class="year">Kyoto · 2024</div>
+                <p class="spec">Archival pigment print on Hahnemühle Photo Rag. 40 × 50 cm. Edition of 6.</p>
+                <a class="price" href="#">Inquire · ¥ 48,000</a>
+            </div>
+        </div>
+
+    </section>
+
+    <section class="colophon" id="colophon">
+        <h3>Colophon</h3>
+        <p>All works printed by the artist in Kyoto, on archival papers, and shipped flat in custom-made boxes. Each print is signed, numbered, and accompanied by a certificate.</p>
+        <p>Inquiries welcome. Prints ship within four weeks.</p>
+        <div class="contact">
+            <a href="mailto:studio@yuisato.jp">studio@yuisato.jp</a>
+        </div>
+    </section>
+
+    <footer>
+        <span>© Yui Sato · Kyoto · MMXXV</span>
+        <a href="/">made with PrintBuddy</a>
+    </footer>
+
+</body>
+</html>

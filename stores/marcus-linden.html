@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marcus Linden — Silver Gelatin Prints</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;1,400&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #e6dfd0;
+            --film: #111;
+            --ink: #1a1612;
+            --muted: #6a5f4c;
+            --serif: 'Cormorant', Georgia, serif;
+            --mono: 'Courier Prime', monospace;
+        }
+
+        html { font-size: 16px; -webkit-font-smoothing: antialiased; }
+
+        body {
+            background: var(--bg);
+            color: var(--ink);
+            font-family: var(--mono);
+            line-height: 1.6;
+        }
+
+        /* ── HEADER ── */
+        header {
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid var(--ink);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand {
+            font-family: var(--serif);
+            font-size: 1.5rem;
+            font-weight: 400;
+            letter-spacing: 0.02em;
+        }
+
+        .brand .small {
+            font-family: var(--mono);
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            color: var(--muted);
+            margin-left: 0.5rem;
+        }
+
+        .nav {
+            display: flex;
+            gap: 2rem;
+            font-family: var(--mono);
+            font-size: 0.8125rem;
+            letter-spacing: 0.05em;
+        }
+
+        .nav a {
+            color: var(--ink);
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+        }
+
+        .nav a:hover { border-color: var(--ink); }
+
+        /* ── COVER ── */
+        .cover {
+            padding: 5rem 2rem 4rem;
+            max-width: 920px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .cover .meta-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            color: var(--muted);
+            margin-bottom: 3rem;
+            text-transform: uppercase;
+        }
+
+        .cover h1 {
+            font-family: var(--serif);
+            font-size: clamp(3rem, 6vw, 5.5rem);
+            font-weight: 400;
+            line-height: 1.05;
+            letter-spacing: -0.01em;
+            margin-bottom: 2rem;
+        }
+
+        .cover h1 em { font-style: italic; }
+
+        .cover .sub {
+            font-family: var(--serif);
+            font-style: italic;
+            font-size: 1.25rem;
+            max-width: 50ch;
+            margin: 0 auto;
+            color: #3a3228;
+        }
+
+        /* ── FILM STRIP ── */
+        .strip-wrap {
+            padding: 3rem 0;
+            overflow-x: auto;
+            background: var(--film);
+            border-top: 1px solid var(--ink);
+            border-bottom: 1px solid var(--ink);
+        }
+
+        .strip {
+            display: flex;
+            gap: 0;
+            padding: 1rem 2rem;
+            min-width: min-content;
+        }
+
+        .strip-frame {
+            flex: 0 0 280px;
+            position: relative;
+        }
+
+        .strip-frame::before,
+        .strip-frame::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 1.25rem;
+            display: block;
+            background-image: repeating-linear-gradient(
+                90deg,
+                #e6dfd0 0 14px,
+                #111 14px 22px
+            );
+        }
+
+        .strip-frame::before { top: 0; }
+        .strip-frame::after { bottom: 0; }
+
+        .strip-photo {
+            margin: 2rem 0.375rem;
+            aspect-ratio: 3/2;
+            background: #222;
+            cursor: pointer;
+            transition: transform 0.3s;
+            border: 2px solid #e6dfd0;
+        }
+
+        .strip-photo:hover { transform: scale(0.98); }
+
+        .sp1 { background: linear-gradient(160deg, #444 0%, #1a1a1a 60%, #2e2e2e 100%); }
+        .sp2 { background: linear-gradient(200deg, #2a2a2a 0%, #555 40%, #111 100%); }
+        .sp3 { background: linear-gradient(140deg, #333 0%, #1e1e1e 50%, #444 100%); }
+        .sp4 { background: linear-gradient(180deg, #222 0%, #4a4a4a 30%, #111 100%); }
+        .sp5 { background: linear-gradient(210deg, #3a3a3a 0%, #1a1a1a 60%, #555 100%); }
+        .sp6 { background: linear-gradient(120deg, #2e2e2e 0%, #555 40%, #1a1a1a 80%); }
+
+        .strip-label {
+            position: absolute;
+            bottom: 0.25rem;
+            left: 0.5rem;
+            font-family: var(--mono);
+            font-size: 0.625rem;
+            color: #c8b88a;
+            letter-spacing: 0.1em;
+            z-index: 2;
+        }
+
+        .strip-label .num {
+            background: #c13a2a;
+            color: #e6dfd0;
+            padding: 0 0.25rem;
+            margin-right: 0.25rem;
+        }
+
+        /* ── CATALOG ENTRIES ── */
+        .catalog {
+            padding: 5rem 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .catalog-intro {
+            font-family: var(--serif);
+            font-style: italic;
+            font-size: 1.25rem;
+            max-width: 50ch;
+            margin-bottom: 4rem;
+            color: #3a3228;
+        }
+
+        .entry {
+            padding: 2.5rem 0;
+            border-top: 1px solid var(--ink);
+            display: grid;
+            grid-template-columns: 120px 1fr auto;
+            gap: 2.5rem;
+            align-items: start;
+        }
+
+        .entry:last-child { border-bottom: 1px solid var(--ink); }
+
+        .entry-num {
+            font-family: var(--serif);
+            font-size: 3rem;
+            font-weight: 400;
+            line-height: 0.9;
+            color: var(--muted);
+        }
+
+        .entry-num .slash {
+            color: var(--ink);
+            font-style: italic;
+        }
+
+        .entry-body h2 {
+            font-family: var(--serif);
+            font-size: 1.875rem;
+            font-weight: 400;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.005em;
+        }
+
+        .entry-body h2 em { font-style: italic; }
+
+        .entry-body .details {
+            font-family: var(--mono);
+            font-size: 0.8125rem;
+            color: var(--muted);
+            letter-spacing: 0.03em;
+            margin-bottom: 1rem;
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .entry-body p {
+            font-family: var(--serif);
+            font-style: italic;
+            font-size: 1.0625rem;
+            max-width: 50ch;
+            color: #3a3228;
+            line-height: 1.55;
+        }
+
+        .entry-price {
+            text-align: right;
+            font-family: var(--mono);
+        }
+
+        .entry-price .amount {
+            font-family: var(--serif);
+            font-size: 1.5rem;
+            font-weight: 400;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .entry-price .avail {
+            font-size: 0.6875rem;
+            letter-spacing: 0.1em;
+            color: var(--muted);
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .entry-price .buy {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--ink);
+            color: var(--ink);
+            text-decoration: none;
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .entry-price .buy:hover {
+            background: var(--ink);
+            color: var(--bg);
+        }
+
+        /* ── TECH NOTES ── */
+        .notes {
+            padding: 4rem 2rem;
+            background: var(--film);
+            color: var(--bg);
+        }
+
+        .notes-grid {
+            max-width: 920px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        .notes h3 {
+            font-family: var(--serif);
+            font-size: 1.5rem;
+            font-weight: 400;
+            font-style: italic;
+        }
+
+        .notes-text {
+            font-family: var(--mono);
+            font-size: 0.875rem;
+            line-height: 1.8;
+        }
+
+        .notes-text p + p { margin-top: 1rem; }
+
+        .notes-text .line {
+            display: block;
+            padding: 0.25rem 0;
+            border-bottom: 1px dashed #444;
+        }
+
+        .notes-text .line b {
+            display: inline-block;
+            width: 11rem;
+            color: #c8b88a;
+            font-weight: 400;
+        }
+
+        /* ── FOOTER ── */
+        footer {
+            padding: 2rem;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+            color: var(--muted);
+        }
+
+        footer a {
+            color: var(--muted);
+            text-decoration: none;
+            font-family: var(--serif);
+            font-style: italic;
+            font-size: 0.875rem;
+        }
+
+        @media (max-width: 800px) {
+            .cover { padding: 3rem 1.5rem 2rem; }
+            .catalog { padding: 3rem 1.5rem; }
+            .notes { padding: 3rem 1.5rem; }
+            .notes-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+            .entry { grid-template-columns: auto 1fr; gap: 1rem; }
+            .entry-price { grid-column: 1 / -1; text-align: left; margin-top: 1rem; }
+            .strip-frame { flex: 0 0 220px; }
+            .nav { gap: 1rem; font-size: 0.75rem; }
+            header { padding: 1rem 1.5rem; }
+            .brand { font-size: 1.25rem; }
+            .cover .meta-row { flex-direction: column; gap: 0.5rem; text-align: left; align-items: flex-start; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="brand">Marcus Linden<span class="small">/ Silver Prints</span></div>
+        <nav class="nav">
+            <a href="#strip">Contact Sheet</a>
+            <a href="#catalog">Catalog</a>
+            <a href="#notes">Process</a>
+        </nav>
+    </header>
+
+    <section class="cover">
+        <div class="meta-row">
+            <span>Darkroom Series № IX</span>
+            <span>Printed 2024 — 2025</span>
+        </div>
+        <h1>Negatives<br>from a <em>cold year</em>.</h1>
+        <p class="sub">Twelve silver gelatin prints, hand-printed on Ilford Multigrade, selenium-toned, from 35mm negatives exposed between January and March 2023.</p>
+    </section>
+
+    <section class="strip-wrap" id="strip">
+        <div class="strip">
+            <div class="strip-frame">
+                <div class="strip-photo sp1"></div>
+                <span class="strip-label"><span class="num">→</span>08A</span>
+            </div>
+            <div class="strip-frame">
+                <div class="strip-photo sp2"></div>
+                <span class="strip-label">09</span>
+            </div>
+            <div class="strip-frame">
+                <div class="strip-photo sp3"></div>
+                <span class="strip-label"><span class="num">→</span>10A</span>
+            </div>
+            <div class="strip-frame">
+                <div class="strip-photo sp4"></div>
+                <span class="strip-label">11</span>
+            </div>
+            <div class="strip-frame">
+                <div class="strip-photo sp5"></div>
+                <span class="strip-label">12</span>
+            </div>
+            <div class="strip-frame">
+                <div class="strip-photo sp6"></div>
+                <span class="strip-label"><span class="num">→</span>13A</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="catalog" id="catalog">
+        <p class="catalog-intro">Each print is exposed by hand under a Leitz Focomat enlarger, developed in Kodak Dektol, fixed, selenium-toned, washed for one hour. Signed and stamped on the verso.</p>
+
+        <div class="entry">
+            <div class="entry-num">I<span class="slash">/</span></div>
+            <div class="entry-body">
+                <h2>A room in <em>Vilnius</em></h2>
+                <div class="details">
+                    <span>HP5+ · 35mm · 1/60 f/2.8</span>
+                    <span>30 × 40 cm</span>
+                    <span>Ed. of 10</span>
+                </div>
+                <p>First frame of the roll. Printed at grade 3, dodged the ceiling.</p>
+            </div>
+            <div class="entry-price">
+                <span class="amount">€ 280</span>
+                <div class="avail">4 of 10 avail.</div>
+                <a class="buy" href="#">Purchase</a>
+            </div>
+        </div>
+
+        <div class="entry">
+            <div class="entry-num">II<span class="slash">/</span></div>
+            <div class="entry-body">
+                <h2>February window</h2>
+                <div class="details">
+                    <span>Tri-X · 35mm · 1/30 f/4</span>
+                    <span>40 × 50 cm</span>
+                    <span>Ed. of 8</span>
+                </div>
+                <p>Snow stopped light for a full second before the shutter. Selenium toned to push the shadows warmer.</p>
+            </div>
+            <div class="entry-price">
+                <span class="amount">€ 340</span>
+                <div class="avail">2 of 8 avail.</div>
+                <a class="buy" href="#">Purchase</a>
+            </div>
+        </div>
+
+        <div class="entry">
+            <div class="entry-num">III<span class="slash">/</span></div>
+            <div class="entry-body">
+                <h2>The <em>bread line</em>, before dawn</h2>
+                <div class="details">
+                    <span>Delta 3200 · pushed to 6400</span>
+                    <span>30 × 40 cm</span>
+                    <span>Ed. of 10</span>
+                </div>
+                <p>Unusually clean grain for the speed. Printed on Multigrade Cooltone.</p>
+            </div>
+            <div class="entry-price">
+                <span class="amount">€ 280</span>
+                <div class="avail">Sold out</div>
+                <a class="buy" href="#" style="opacity:0.4;pointer-events:none">Unavailable</a>
+            </div>
+        </div>
+
+        <div class="entry">
+            <div class="entry-num">IV<span class="slash">/</span></div>
+            <div class="entry-body">
+                <h2>Two chairs</h2>
+                <div class="details">
+                    <span>Acros II · 35mm · tripod</span>
+                    <span>40 × 50 cm</span>
+                    <span>Ed. of 8</span>
+                </div>
+                <p>Eight-second exposure. Slowest sheet I printed all year. A calm picture.</p>
+            </div>
+            <div class="entry-price">
+                <span class="amount">€ 340</span>
+                <div class="avail">6 of 8 avail.</div>
+                <a class="buy" href="#">Purchase</a>
+            </div>
+        </div>
+
+    </section>
+
+    <section class="notes" id="notes">
+        <div class="notes-grid">
+            <h3>Technical notes</h3>
+            <div class="notes-text">
+                <span class="line"><b>&gt; film</b>Ilford HP5+, Kodak Tri-X, Delta 3200</span>
+                <span class="line"><b>&gt; developer</b>Kodak HC-110 (B) · 68°F · 7 min</span>
+                <span class="line"><b>&gt; enlarger</b>Leitz Focomat IIc · 50mm f/4.5</span>
+                <span class="line"><b>&gt; paper</b>Ilford Multigrade FB Classic / Cooltone</span>
+                <span class="line"><b>&gt; print dev</b>Kodak Dektol 1:2 · 90 sec</span>
+                <span class="line"><b>&gt; toning</b>Selenium KRST 1:20 · 4–6 min</span>
+                <span class="line"><b>&gt; wash</b>60 min archival</span>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <span>© Marcus Linden · Stockholm</span>
+        <a href="/">printed with PrintBuddy</a>
+    </footer>
+
+</body>
+</html>

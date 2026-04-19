@@ -291,6 +291,121 @@
             border: 8px solid #fff;
         }
 
+        /* 7. Jonas Melchior — zine / skate */
+        .ex-jonas { background: #e8e3d4; }
+        .ex-jonas::before {
+            content: 'JONAS // MELCHIOR';
+            position: absolute;
+            top: 0.75rem; left: 1rem;
+            font-family: 'Archivo Black', 'Inter', sans-serif;
+            font-weight: 900;
+            font-size: 0.75rem;
+            color: #0a0a0a;
+            letter-spacing: -0.01em;
+            text-transform: uppercase;
+            padding-bottom: 0.375rem;
+            border-bottom: 2px solid #0a0a0a;
+            right: 1rem;
+        }
+        .ex-jonas::after {
+            content: 'EMPTY LOTS';
+            position: absolute;
+            top: 40%;
+            left: 1rem;
+            transform: translateY(-50%);
+            font-family: 'Archivo Black', 'Inter', sans-serif;
+            font-weight: 900;
+            font-size: 2rem;
+            line-height: 0.9;
+            color: #0a0a0a;
+            letter-spacing: -0.04em;
+            text-transform: uppercase;
+        }
+        .ex-jonas > .stamp {
+            position: absolute;
+            top: 2.25rem;
+            right: 0.75rem;
+            border: 2px solid #c13a2a;
+            color: #c13a2a;
+            padding: 0.25rem 0.5rem;
+            font-family: 'Archivo Black', sans-serif;
+            font-size: 0.5625rem;
+            letter-spacing: 0.1em;
+            transform: rotate(8deg);
+        }
+
+        /* 8. Ines Kovač — architecture */
+        .ex-ines {
+            background: #fafafa;
+            background-image:
+                linear-gradient(rgba(13,13,15,0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(13,13,15,0.04) 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+        .ex-ines::before {
+            content: '■ Ines Kovač / Architecture';
+            position: absolute;
+            top: 1rem; left: 1.25rem;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.6875rem;
+            font-weight: 600;
+            color: #0d0d0f;
+            letter-spacing: -0.01em;
+        }
+        .ex-ines::after {
+            content: '';
+            position: absolute;
+            top: 2.75rem; left: 1.25rem; right: 1.25rem; bottom: 1.25rem;
+            background:
+                linear-gradient(180deg, #d4d8dd, #8a8f94 40%, #3a3e44) 0 0/52% 100% no-repeat,
+                linear-gradient(200deg, #a8acb0, #4a4e54 60%, #1a1e24) 54% 0/22% 48% no-repeat,
+                linear-gradient(160deg, #e8ecf0, #8a8e94 50%, #3a3e44) 77% 0/22% 48% no-repeat,
+                linear-gradient(90deg, #c8ccd0, #6a6e74 50%, #2e3238) 54% 52%/46% 48% no-repeat;
+            border-left: 1px solid rgba(13,13,15,0.15);
+        }
+
+        /* 9. Marcus Linden — analog / film strip */
+        .ex-marcus { background: #e6dfd0; }
+        .ex-marcus::before {
+            content: 'Marcus Linden / Silver Prints';
+            position: absolute;
+            top: 1rem; left: 1.25rem;
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 0.8125rem;
+            color: #1a1612;
+        }
+        .ex-marcus::after {
+            content: '';
+            position: absolute;
+            top: 2.75rem;
+            left: 0;
+            right: 0;
+            bottom: 1rem;
+            background:
+                repeating-linear-gradient(90deg, #e6dfd0 0 12px, #111 12px 18px) top/100% 0.875rem no-repeat,
+                repeating-linear-gradient(90deg, #e6dfd0 0 12px, #111 12px 18px) bottom/100% 0.875rem no-repeat,
+                linear-gradient(0deg, #111 0%, #111 100%);
+            padding: 0.875rem 0;
+        }
+        .ex-marcus > .filmstrip {
+            position: absolute;
+            top: 3.75rem;
+            left: 1rem;
+            right: 1rem;
+            bottom: 2rem;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.25rem;
+            z-index: 2;
+        }
+        .ex-marcus > .filmstrip > span {
+            border: 2px solid #e6dfd0;
+        }
+        .ex-marcus > .filmstrip > span:nth-child(1) { background: linear-gradient(160deg, #444, #1a1a1a 60%, #2e2e2e); }
+        .ex-marcus > .filmstrip > span:nth-child(2) { background: linear-gradient(200deg, #2a2a2a, #555 40%, #111); }
+        .ex-marcus > .filmstrip > span:nth-child(3) { background: linear-gradient(140deg, #333, #1e1e1e 50%, #444); }
+
         .footer-cta {
             border-top: 1px solid var(--gray-100);
             padding: 4rem 2rem;
@@ -386,6 +501,29 @@
             <div class="example-tag">Fine art · gallery</div>
             <h2>Yui Sato</h2>
             <p>Много воздуха, одна работа на экране. Как страницы выставочного каталога.</p>
+        </a>
+
+        <a href="jonas-melchior.html" class="example">
+            <div class="example-preview ex-jonas"><span class="stamp">LTD<br>RUN</span></div>
+            <div class="example-tag">Skate zine · DIY</div>
+            <h2>Jonas Melchior</h2>
+            <p>Чёрно-белая плёнка, жирный Archivo Black, красный штамп, контакт-лист, ксерокс-текстура.</p>
+        </a>
+
+        <a href="ines-kovac.html" class="example">
+            <div class="example-preview ex-ines"></div>
+            <div class="example-tag">Architecture · technical</div>
+            <h2>Ines Kovač</h2>
+            <p>Миллиметровка, mono-шрифт, синий акцент. Снимки архитектуры с техническими спецификациями.</p>
+        </a>
+
+        <a href="marcus-linden.html" class="example">
+            <div class="example-preview ex-marcus">
+                <div class="filmstrip"><span></span><span></span><span></span></div>
+            </div>
+            <div class="example-tag">Analog · silver gelatin</div>
+            <h2>Marcus Linden</h2>
+            <p>Серифный заголовок, кофейный фон, настоящая плёночная лента, плотные техно-заметки о процессе.</p>
         </a>
 
     </section>

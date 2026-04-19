@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ines Kovač — Architectural Photography</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #fafafa;
+            --ink: #0d0d0f;
+            --muted: #7a7d82;
+            --line: #d8dade;
+            --accent: #0055ff;
+            --sans: 'Inter', -apple-system, sans-serif;
+            --mono: 'JetBrains Mono', monospace;
+        }
+
+        html { font-size: 15px; -webkit-font-smoothing: antialiased; }
+
+        body {
+            background: var(--bg);
+            color: var(--ink);
+            font-family: var(--sans);
+            font-weight: 400;
+            line-height: 1.55;
+            background-image:
+                linear-gradient(rgba(13,13,15,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(13,13,15,0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        /* ── HEADER ── */
+        header {
+            border-bottom: 1px solid var(--ink);
+            padding: 1rem 1.5rem;
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 2rem;
+            align-items: center;
+            background: var(--bg);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .brand {
+            font-weight: 600;
+            font-size: 0.875rem;
+            letter-spacing: -0.01em;
+        }
+
+        .brand .dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            margin-right: 0.375rem;
+            vertical-align: middle;
+        }
+
+        .meta-strip {
+            font-family: var(--mono);
+            font-size: 0.6875rem;
+            color: var(--muted);
+            letter-spacing: 0.05em;
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav {
+            display: flex;
+            gap: 1.5rem;
+            font-size: 0.8125rem;
+        }
+
+        .nav a {
+            color: var(--ink);
+            text-decoration: none;
+        }
+
+        .nav a.cart {
+            border: 1px solid var(--ink);
+            padding: 0.125rem 0.625rem;
+        }
+
+        /* ── HERO ── */
+        .hero {
+            padding: 4rem 1.5rem 3rem;
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 5fr 7fr;
+            gap: 3rem;
+            align-items: end;
+        }
+
+        .label {
+            font-family: var(--mono);
+            font-size: 0.6875rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.25rem, 4.5vw, 4rem);
+            font-weight: 300;
+            line-height: 1;
+            letter-spacing: -0.03em;
+            margin-bottom: 2rem;
+        }
+
+        .hero h1 b {
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        .hero p {
+            font-size: 1rem;
+            color: #4a4d52;
+            max-width: 44ch;
+            line-height: 1.7;
+        }
+
+        .spec-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            background: var(--line);
+            border: 1px solid var(--line);
+        }
+
+        .spec {
+            background: var(--bg);
+            padding: 1rem 1.25rem;
+        }
+
+        .spec dt {
+            font-family: var(--mono);
+            font-size: 0.625rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 0.375rem;
+        }
+
+        .spec dd {
+            font-family: var(--mono);
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--ink);
+        }
+
+        /* ── PLATES ── */
+        .catalog {
+            border-top: 1px solid var(--ink);
+            border-bottom: 1px solid var(--ink);
+            background: var(--bg);
+        }
+
+        .cat-header {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--line);
+            display: grid;
+            grid-template-columns: 1fr auto auto auto auto;
+            gap: 2rem;
+            font-family: var(--mono);
+            font-size: 0.6875rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        .plates {
+            padding: 1.5rem;
+            max-width: 1280px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 1px;
+            background: var(--line);
+            border: 1px solid var(--line);
+        }
+
+        .plate {
+            grid-column: span 4;
+            background: var(--bg);
+            padding: 1rem;
+            position: relative;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .plate:hover { background: #fff; }
+
+        .plate.w6 { grid-column: span 6; }
+        .plate.w8 { grid-column: span 8; }
+
+        .plate-id {
+            font-family: var(--mono);
+            font-size: 0.6875rem;
+            color: var(--accent);
+            letter-spacing: 0.1em;
+            margin-bottom: 0.75rem;
+        }
+
+        .plate-img {
+            width: 100%;
+            aspect-ratio: 3/4;
+            margin-bottom: 1rem;
+            background: #eee;
+        }
+
+        .plate.landscape .plate-img { aspect-ratio: 3/2; }
+        .plate.panorama .plate-img { aspect-ratio: 16/7; }
+
+        .a1 { background: linear-gradient(180deg, #d4d8dd 0%, #8a8f94 40%, #3a3e44 100%); }
+        .a2 { background: linear-gradient(90deg, #c8ccd0 0%, #6a6e74 50%, #2e3238 100%); }
+        .a3 { background: linear-gradient(160deg, #e8ecf0 0%, #8a8e94 50%, #3a3e44 100%); }
+        .a4 { background: linear-gradient(200deg, #a8acb0 0%, #4a4e54 60%, #1a1e24 100%); }
+        .a5 { background: linear-gradient(180deg, #b8bcc0 0%, #5a5e64 70%, #1a1e24 100%); }
+        .a6 { background: linear-gradient(140deg, #d0d4d8 0%, #7a7e84 50%, #2a2e34 100%); }
+
+        .plate h3 {
+            font-size: 0.9375rem;
+            font-weight: 500;
+            letter-spacing: -0.01em;
+            margin-bottom: 0.25rem;
+        }
+
+        .plate-meta {
+            font-family: var(--mono);
+            font-size: 0.6875rem;
+            color: var(--muted);
+            letter-spacing: 0.03em;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.75rem;
+        }
+
+        .plate-specs {
+            border-top: 1px dashed var(--line);
+            padding-top: 0.75rem;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 0.25rem 0.75rem;
+            font-family: var(--mono);
+            font-size: 0.6875rem;
+            color: var(--ink);
+        }
+
+        .plate-specs span:nth-child(odd) { color: var(--muted); }
+        .plate-price {
+            grid-column: 1 / -1;
+            margin-top: 0.5rem;
+            font-weight: 500;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .plate-price .buy {
+            background: var(--accent);
+            color: #fff;
+            padding: 0.25rem 0.625rem;
+            text-decoration: none;
+            font-size: 0.625rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        /* ── FOOTER ── */
+        footer {
+            padding: 2rem 1.5rem;
+            max-width: 1280px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 2rem;
+        }
+
+        footer h4 {
+            font-family: var(--mono);
+            font-size: 0.6875rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 0.75rem;
+        }
+
+        footer p, footer a {
+            font-size: 0.8125rem;
+            color: var(--ink);
+            text-decoration: none;
+            display: block;
+        }
+
+        .powered {
+            font-family: var(--mono);
+            font-size: 0.6875rem;
+            color: var(--muted);
+            border-top: 1px solid var(--line);
+            padding: 1rem 1.5rem;
+            text-align: center;
+        }
+
+        .powered a { color: var(--accent); text-decoration: none; }
+
+        @media (max-width: 900px) {
+            header { grid-template-columns: 1fr auto; }
+            .meta-strip { display: none; }
+            .hero-grid { grid-template-columns: 1fr; }
+            .plate, .plate.w6, .plate.w8 { grid-column: span 12; }
+            .spec-grid { grid-template-columns: 1fr; }
+            footer { grid-template-columns: 1fr 1fr; }
+            .cat-header { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="brand"><span class="dot"></span>Ines Kovač / Architecture</div>
+        <div class="meta-strip">
+            <span>LAT 48.2082 / LNG 16.3738</span>
+            <span>LAST UPDATE 2025.04.12</span>
+        </div>
+        <div class="nav">
+            <a href="#catalog">Catalog</a>
+            <a href="#">Index</a>
+            <a href="#" class="cart">Cart — 0</a>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-grid">
+            <div>
+                <div class="label">SELECTED WORKS / 2019 — 2025</div>
+                <h1>On concrete,<br>steel, <b>light.</b></h1>
+                <p>Photographs of built space. Printed on Canson Platine Fibre Rag, signed, editioned. Sold as open or limited editions.</p>
+            </div>
+
+            <dl class="spec-grid">
+                <div class="spec">
+                    <dt>Camera</dt>
+                    <dd>Phase One XF / IQ4 150MP</dd>
+                </div>
+                <div class="spec">
+                    <dt>Studio</dt>
+                    <dd>Vienna, Austria</dd>
+                </div>
+                <div class="spec">
+                    <dt>Clients</dt>
+                    <dd>OMA · Snøhetta · BIG · Wallpaper*</dd>
+                </div>
+            </dl>
+        </div>
+    </section>
+
+    <section class="catalog" id="catalog">
+        <div class="cat-header">
+            <span>Plate</span>
+            <span>Year</span>
+            <span>Format</span>
+            <span>Edition</span>
+            <span>Price</span>
+        </div>
+
+        <div class="plates">
+
+            <div class="plate w8 panorama">
+                <div class="plate-id">IK · 2024 · 001</div>
+                <div class="plate-img a1"></div>
+                <h3>Kagawa Prefectural Office</h3>
+                <div class="plate-meta"><span>Kenzo Tange · 1958</span><span>Takamatsu, JP</span></div>
+                <dl class="plate-specs">
+                    <span>Format</span><span>80 × 35 cm</span>
+                    <span>Paper</span><span>Canson Platine 310 g/m²</span>
+                    <span>Edition</span><span>7 of 15</span>
+                    <div class="plate-price"><span>€ 680</span><a class="buy" href="#">Add</a></div>
+                </dl>
+            </div>
+
+            <div class="plate w4">
+                <div class="plate-id">IK · 2023 · 014</div>
+                <div class="plate-img a2"></div>
+                <h3>Brion Tomb</h3>
+                <div class="plate-meta"><span>Carlo Scarpa · 1978</span><span>Altivole, IT</span></div>
+                <dl class="plate-specs">
+                    <span>Format</span><span>40 × 50 cm</span>
+                    <span>Edition</span><span>12 of 25</span>
+                    <div class="plate-price"><span>€ 380</span><a class="buy" href="#">Add</a></div>
+                </dl>
+            </div>
+
+            <div class="plate w4 landscape">
+                <div class="plate-id">IK · 2024 · 022</div>
+                <div class="plate-img a3"></div>
+                <h3>Therme Vals</h3>
+                <div class="plate-meta"><span>P. Zumthor · 1996</span><span>Vals, CH</span></div>
+                <dl class="plate-specs">
+                    <span>Format</span><span>60 × 40 cm</span>
+                    <span>Edition</span><span>9 of 20</span>
+                    <div class="plate-price"><span>€ 520</span><a class="buy" href="#">Add</a></div>
+                </dl>
+            </div>
+
+            <div class="plate w4">
+                <div class="plate-id">IK · 2022 · 008</div>
+                <div class="plate-img a4"></div>
+                <h3>Church of Light</h3>
+                <div class="plate-meta"><span>Tadao Ando · 1989</span><span>Ibaraki, JP</span></div>
+                <dl class="plate-specs">
+                    <span>Format</span><span>50 × 60 cm</span>
+                    <span>Edition</span><span>3 of 10</span>
+                    <div class="plate-price"><span>€ 620</span><a class="buy" href="#">Add</a></div>
+                </dl>
+            </div>
+
+            <div class="plate w4 landscape">
+                <div class="plate-id">IK · 2023 · 031</div>
+                <div class="plate-img a5"></div>
+                <h3>Neue Nationalgalerie</h3>
+                <div class="plate-meta"><span>Mies · 1968</span><span>Berlin, DE</span></div>
+                <dl class="plate-specs">
+                    <span>Format</span><span>50 × 70 cm</span>
+                    <span>Edition</span><span>16 of 30</span>
+                    <div class="plate-price"><span>€ 440</span><a class="buy" href="#">Add</a></div>
+                </dl>
+            </div>
+
+            <div class="plate w4">
+                <div class="plate-id">IK · 2024 · 045</div>
+                <div class="plate-img a6"></div>
+                <h3>Salk Institute</h3>
+                <div class="plate-meta"><span>Louis Kahn · 1965</span><span>La Jolla, US</span></div>
+                <dl class="plate-specs">
+                    <span>Format</span><span>40 × 50 cm</span>
+                    <span>Edition</span><span>5 of 15</span>
+                    <div class="plate-price"><span>€ 480</span><a class="buy" href="#">Add</a></div>
+                </dl>
+            </div>
+
+        </div>
+    </section>
+
+    <footer>
+        <div>
+            <h4>Studio</h4>
+            <p>Ines Kovač</p>
+            <p>Gumpendorfer Straße 12 / 2</p>
+            <p>1060 Wien, Austria</p>
+            <a href="mailto:studio@ineskovac.at">studio@ineskovac.at</a>
+        </div>
+        <div>
+            <h4>Editions</h4>
+            <a href="#">Sizes & paper</a>
+            <a href="#">Shipping</a>
+            <a href="#">Certificates</a>
+        </div>
+        <div>
+            <h4>Press</h4>
+            <a href="#">Domus 2024</a>
+            <a href="#">Architectural Review</a>
+            <a href="#">Wallpaper* Index</a>
+        </div>
+        <div>
+            <h4>Follow</h4>
+            <a href="#">Instagram</a>
+            <a href="#">Newsletter</a>
+        </div>
+    </footer>
+
+    <div class="powered">↳ powered by <a href="/">PrintBuddy</a></div>
+
+</body>
+</html>

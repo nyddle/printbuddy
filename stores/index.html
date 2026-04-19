@@ -163,6 +163,30 @@
                 linear-gradient(120deg, #1e1e1e, #404040 40%, #1a1a1a) bottom right/31% 48% no-repeat;
         }
 
+        /* 1b. Anna Mori Light — same, inverted */
+        .ex-anna-light { background: #f6f4ef; }
+        .ex-anna-light::before {
+            content: 'ANNA MORI · PRINTS';
+            position: absolute;
+            top: 1rem; left: 1.25rem;
+            font-family: 'Inter', monospace;
+            font-size: 0.625rem;
+            color: #111;
+            letter-spacing: 0.05em;
+        }
+        .ex-anna-light::after {
+            content: '';
+            position: absolute;
+            top: 3rem; left: 1.25rem; right: 1.25rem; bottom: 1.25rem;
+            background:
+                linear-gradient(160deg, #1a1a1a, #3a3a3a 40%, #151515) top left/31% 48% no-repeat,
+                linear-gradient(200deg, #2a2a2a, #4a4a4a 30%, #1e1e1e) 34.5% top/31% 48% no-repeat,
+                linear-gradient(140deg, #111, #2f2f2f 50%, #1a1a1a) top right/31% 48% no-repeat,
+                linear-gradient(180deg, #2a2a2a, #1a1a1a 40%, #3a3a3a) bottom left/31% 48% no-repeat,
+                linear-gradient(210deg, #333, #151515 60%, #444) 34.5% bottom/31% 48% no-repeat,
+                linear-gradient(120deg, #1e1e1e, #404040 40%, #1a1a1a) bottom right/31% 48% no-repeat;
+        }
+
         /* 2. Elena Gray — warm editorial */
         .ex-elena { background: #f4f1ec; }
         .ex-elena::before {
@@ -463,9 +487,16 @@
 
         <a href="anna-mori.html" class="example">
             <div class="example-preview ex-anna"></div>
-            <div class="example-tag">Tokyo street · minimal</div>
+            <div class="example-tag">Tokyo street · dark</div>
             <h2>Anna Mori</h2>
             <p>Тёмная плотная сетка, моноширинная типографика. Ночной Токио и ранний свет.</p>
+        </a>
+
+        <a href="anna-mori-light.html" class="example">
+            <div class="example-preview ex-anna-light"></div>
+            <div class="example-tag">Tokyo street · light</div>
+            <h2>Anna Mori <em>— light</em></h2>
+            <p>Та же раскладка на тёплой бумаге. Переключатель темы прямо в шапке магазина.</p>
         </a>
 
         <a href="elena-gray.html" class="example">

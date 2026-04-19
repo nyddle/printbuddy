@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Anna Mori — Prints</title>
+    <!-- LIGHT VARIANT of the minimal Tokyo street aesthetic -->
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
@@ -11,11 +13,11 @@
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
-            --bg: #0e0e0e;
-            --fg: #f0f0f0;
-            --muted: #6a6a6a;
-            --border: #1e1e1e;
-            --accent: #f0f0f0;
+            --bg: #f6f4ef;
+            --fg: #111;
+            --muted: #8a8680;
+            --border: #e4e0d8;
+            --accent: #111;
         }
 
         html { font-size: 16px; -webkit-font-smoothing: antialiased; }
@@ -39,8 +41,9 @@
             border-bottom: 1px solid var(--border);
             position: sticky;
             top: 0;
-            background: rgba(14, 14, 14, 0.9);
+            background: rgba(246, 244, 239, 0.92);
             backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             z-index: 10;
         }
 
@@ -78,7 +81,7 @@
 
         .intro p {
             font-size: 1.0625rem;
-            color: #b8b8b8;
+            color: #4a4742;
             line-height: 1.7;
             max-width: 540px;
             margin-bottom: 2rem;
@@ -148,7 +151,7 @@
 
         .print-image {
             aspect-ratio: 3/4;
-            background: #1a1a1a;
+            background: #ece8df;
             margin-bottom: 0.875rem;
             position: relative;
             overflow: hidden;
@@ -267,7 +270,7 @@
     <header>
         <div class="brand">ANNA MORI<span class="dot">·</span>PRINTS</div>
         <div class="header-right">
-            <a class="theme-switch" href="anna-mori-light.html">☀ LIGHT</a>
+            <a class="theme-switch" href="anna-mori.html">☾ DARK</a>
             <div class="cart">CART <span style="opacity:0.5">(0)</span></div>
         </div>
     </header>

@@ -230,7 +230,7 @@
             <h3>Оформление заказа</h3>
             <p class="pb-cart-modal-sub">Оплата не списывается. Менеджер свяжется с вами и согласует доставку и способ оплаты.</p>
             <div class="pb-cart-summary">${summary}</div>
-            <form class="pb-cart-form" name="checkout" method="POST" data-netlify="true" netlify-honeypot="bot-field" novalidate>
+            <form class="pb-cart-form" name="checkout" method="POST" action="/thanks/" data-netlify="true" netlify-honeypot="bot-field" novalidate>
                 <input type="hidden" name="form-name" value="checkout">
                 <input type="hidden" name="store" value="${escapeAttr(storeName)}">
                 <input type="hidden" name="order_json" value='${escapeAttr(orderJson)}'>
@@ -262,17 +262,21 @@
         `;
     }
 
-    function renderSuccess() {
+    function renderSuccess(submittedEmail) {
         const wrap = document.querySelector('.pb-cart-modal-form-wrap');
         if (!wrap) return;
+        const safeEmail = submittedEmail ? escapeHtml(submittedEmail) : '';
         wrap.innerHTML = `
             <div class="pb-cart-success">
                 <div class="pb-cart-success-icon">✓</div>
-                <h3>Заявка отправлена</h3>
-                <p>Менеджер свяжется с вами в течение суток.<br>Спасибо за интерес к нашим работам.</p>
-                <button class="pb-cart-checkout" data-cart-modal-close>Закрыть</button>
+                <h3>Спасибо, заявка получена!</h3>
+                <p>Мы свяжемся с вами в течение&nbsp;1 рабочего дня${safeEmail ? ` по адресу <strong>${safeEmail}</strong>` : ''}, чтобы согласовать формат печати, доставку и оплату.</p>
+                <p class="pb-cart-success-quiet">Если в течение суток ответа нет&nbsp;— напишите нам напрямую, иногда письма теряются.</p>
+                <button class="pb-cart-checkout" data-cart-modal-close>Понятно, закрыть</button>
             </div>
         `;
+        // Close the cart drawer behind the modal so user sees a clean confirmation
+        Cart.close();
     }
 
     // ── Config loader (cached) ─────────────────────────────
@@ -436,10 +440,11 @@
             submitBtn.disabled = true;
             submitBtn.textContent = 'Отправка…';
 
+            const submittedEmail = form.querySelector('[name="email"]')?.value || '';
             const ok = await submitCheckout(form);
             if (ok) {
                 Cart.clear();
-                renderSuccess();
+                renderSuccess(submittedEmail);
             } else {
                 submitBtn.disabled = false;
                 submitBtn.textContent = 'Отправить заявку';

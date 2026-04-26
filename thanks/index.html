@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Спасибо — заявка получена</title>
+    <meta name="robots" content="noindex">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { font-size: 16px; -webkit-font-smoothing: antialiased; }
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            font-family: 'Inter', -apple-system, sans-serif;
+            color: #111;
+            background: #fafafa;
+            text-align: center;
+        }
+
+        .icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: #111;
+            color: #fafafa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.25rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            line-height: 1;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+            font-weight: 400;
+            margin-bottom: 1rem;
+            letter-spacing: -0.01em;
+        }
+
+        h1 em { font-style: italic; }
+
+        p {
+            color: #525252;
+            font-size: 1rem;
+            line-height: 1.65;
+            max-width: 44ch;
+            margin: 0 auto 0.75rem;
+        }
+
+        p.quiet {
+            color: #888;
+            font-size: 0.875rem;
+            margin-top: 1rem;
+        }
+
+        a.back {
+            display: inline-block;
+            margin-top: 2.5rem;
+            background: #111;
+            color: #fafafa;
+            padding: 0.8125rem 1.75rem;
+            border-radius: 4px;
+            font-size: 0.9375rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: opacity 0.2s;
+        }
+
+        a.back:hover { opacity: 0.85; }
+
+        .footer-link {
+            position: fixed;
+            bottom: 1.25rem;
+            font-size: 0.75rem;
+            color: #a0a0a0;
+            text-decoration: none;
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="icon">✓</div>
+    <h1>Спасибо, заявка <em>получена</em>.</h1>
+    <p>Мы свяжемся с вами в течение <strong>1 рабочего дня</strong> по указанным контактам, чтобы согласовать формат печати, доставку и оплату.</p>
+    <p class="quiet">Если ответа не будет в течение суток&nbsp;— напишите нам напрямую, иногда письма теряются.</p>
+
+    <a href="javascript:history.back()" class="back">← Вернуться в магазин</a>
+
+    <a href="/" class="footer-link">PrintBuddy</a>
+
+</body>
+</html>

@@ -275,24 +275,45 @@
         `;
     }
 
-    // ── Form submission (Netlify Forms) ────────────────────
-    async function submitCheckout(form) {
+    // ── Config loader (cached) ─────────────────────────────
+    let _configPromise = null;
+    function getConfig() {
+        if (!_configPromise) {
+            _configPromise = fetch('/config.json', { cache: 'no-cache' })
+                .then(r => r.ok ? r.json() : {})
+                .catch(() => ({}));
+        }
+        return _configPromise;
+    }
+
+    async function postToGoogleSheet(url, form) {
+        const data = Object.fromEntries(new FormData(form));
+        // Add metadata not present in the form
+        const portfolio = (new URLSearchParams(location.search).get('portfolio')) || '';
+        const payload = {
+            ...data,
+            portfolio,
+            user_agent: navigator.userAgent
+        };
+        try {
+            // text/plain to avoid CORS preflight (Apps Script allows simple requests)
+            const res = await fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                body: JSON.stringify(payload),
+                redirect: 'follow'
+            });
+            return res.ok;
+        } catch (err) {
+            console.warn('[cart] google-sheets webhook failed:', err);
+            return false;
+        }
+    }
+
+    async function postToNetlifyForms(form) {
         const data = new FormData(form);
         const params = new URLSearchParams();
         for (const [k, v] of data) params.append(k, v);
-
-        // Local dev: no Netlify available — simulate success
-        const isLocal = /^(localhost|127\.|\[?::1)/.test(location.hostname);
-
-        if (isLocal) {
-            console.info('[cart] would submit to Netlify Forms:', Object.fromEntries(data));
-            // Save to local log so user can inspect
-            const log = JSON.parse(localStorage.getItem('pb:orders:log') || '[]');
-            log.unshift({ ts: new Date().toISOString(), data: Object.fromEntries(data) });
-            localStorage.setItem('pb:orders:log', JSON.stringify(log.slice(0, 20)));
-            return true;
-        }
-
         try {
             const res = await fetch('/', {
                 method: 'POST',
@@ -301,9 +322,37 @@
             });
             return res.ok;
         } catch (err) {
-            console.warn('[cart] submit failed:', err);
+            console.warn('[cart] netlify forms submit failed:', err);
             return false;
         }
+    }
+
+    // ── Form submission ───────────────────────────────────
+    async function submitCheckout(form) {
+        const cfg = await getConfig();
+        const sheetUrl = cfg?.checkout?.google_sheets_webhook;
+        const isLocal = /^(localhost|127\.|\[?::1)/.test(location.hostname);
+
+        // Local dev: log instead of hitting external services (sheet webhook still
+        // works from localhost since CORS is bypassed by text/plain — opt in by
+        // setting ?live=1 to actually send during local testing).
+        const live = new URLSearchParams(location.search).get('live') === '1';
+
+        if (isLocal && !live) {
+            console.info('[cart] would submit:', Object.fromEntries(new FormData(form)));
+            const log = JSON.parse(localStorage.getItem('pb:orders:log') || '[]');
+            log.unshift({ ts: new Date().toISOString(), data: Object.fromEntries(new FormData(form)) });
+            localStorage.setItem('pb:orders:log', JSON.stringify(log.slice(0, 20)));
+            return true;
+        }
+
+        // Fire both in parallel; succeed if either lands.
+        const targets = [];
+        targets.push(postToNetlifyForms(form));
+        if (sheetUrl) targets.push(postToGoogleSheet(sheetUrl, form));
+
+        const results = await Promise.all(targets);
+        return results.some(Boolean);
     }
 
     // ── Event delegation ───────────────────────────────────

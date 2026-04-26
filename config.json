@@ -1,0 +1,7 @@
+{
+  "_comment": "Edit this file to configure runtime integrations. No rebuild needed — cart.js fetches it on every page load.",
+  "checkout": {
+    "google_sheets_webhook": "",
+    "_google_sheets_webhook_help": "Paste your Google Apps Script /exec URL here. See /docs/google-sheets-setup.md for setup."
+  }
+}

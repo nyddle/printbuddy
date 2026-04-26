@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/js/cart.css">
     <style>
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -248,6 +249,29 @@
             border-color: var(--muted);
         }
 
+        /* Cart "Add" button — themed for Anna Mori */
+        .pb-cart-add-btn {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.625rem;
+            letter-spacing: 0.1em;
+            color: var(--muted);
+            border-color: var(--border);
+            padding: 0.3125rem 0.625rem;
+            margin-top: 0.5rem;
+        }
+
+        .pb-cart-add-btn:hover {
+            color: var(--fg);
+            background: transparent;
+            border-color: var(--fg);
+        }
+
+        .pb-cart-add-btn.pb-added {
+            background: var(--fg);
+            color: var(--bg);
+            border-color: var(--fg);
+        }
+
         @media (max-width: 900px) {
             .grid { grid-template-columns: repeat(2, 1fr); gap: 1.5rem 1rem; }
             .intro { padding: 5rem 1.5rem 3rem; }
@@ -262,13 +286,13 @@
         }
     </style>
 </head>
-<body>
+<body data-store="anna-mori" data-pb-cart-theme="dark">
 
     <header>
         <div class="brand"><span data-field="name_short">ANNA MORI</span><span class="dot">·</span>PRINTS</div>
         <div class="header-right">
             <a class="theme-switch" href="anna-mori-light.html">☀ LIGHT</a>
-            <div class="cart">CART <span style="opacity:0.5">(0)</span></div>
+            <a class="cart" href="#" data-cart-toggle style="text-decoration:none;color:inherit">CART <span style="opacity:0.5">(<span data-cart-count>0</span>)</span></a>
         </div>
     </header>
 
@@ -295,6 +319,7 @@
                     <span class="print-title" data-photo-title="0">Shibuya, 5am</span>
                     <span class="print-price" data-photo-price="0">¥ 3 200</span>
                 </div>
+                <button class="pb-cart-add-btn" data-cart-add><span class="pb-cart-add-label">+ Add to cart</span></button>
                 <div class="print-location" data-photo-location="0">Tokyo · 04.2024</div>
             </div>
 
@@ -304,6 +329,7 @@
                     <span class="print-title" data-photo-title="1">Rain on Concrete</span>
                     <span class="print-price" data-photo-price="1">¥ 2 800</span>
                 </div>
+                <button class="pb-cart-add-btn" data-cart-add><span class="pb-cart-add-label">+ Add to cart</span></button>
                 <div class="print-location" data-photo-location="1">Shinjuku · 03.2024</div>
             </div>
 
@@ -313,6 +339,7 @@
                     <span class="print-title" data-photo-title="2">Last Train</span>
                     <span class="print-price" data-photo-price="2">¥ 3 500</span>
                 </div>
+                <button class="pb-cart-add-btn" data-cart-add><span class="pb-cart-add-label">+ Add to cart</span></button>
                 <div class="print-location" data-photo-location="2">Yamanote · 02.2024</div>
             </div>
 
@@ -322,6 +349,7 @@
                     <span class="print-title" data-photo-title="3">Neon, Fading</span>
                     <span class="print-price" data-photo-price="3">¥ 2 600</span>
                 </div>
+                <button class="pb-cart-add-btn" data-cart-add><span class="pb-cart-add-label">+ Add to cart</span></button>
                 <div class="print-location" data-photo-location="3">Kabukichō · 11.2023</div>
             </div>
 
@@ -331,6 +359,7 @@
                     <span class="print-title" data-photo-title="4">Corner Shop</span>
                     <span class="print-price" data-photo-price="4">¥ 2 800</span>
                 </div>
+                <button class="pb-cart-add-btn" data-cart-add><span class="pb-cart-add-label">+ Add to cart</span></button>
                 <div class="print-location" data-photo-location="4">Nakano · 01.2024</div>
             </div>
 
@@ -340,6 +369,7 @@
                     <span class="print-title" data-photo-title="5">Umbrella, Alone</span>
                     <span class="print-price" data-photo-price="5">¥ 3 000</span>
                 </div>
+                <button class="pb-cart-add-btn" data-cart-add><span class="pb-cart-add-label">+ Add to cart</span></button>
                 <div class="print-location" data-photo-location="5">Ginza · 06.2023</div>
             </div>
 
@@ -349,6 +379,7 @@
                     <span class="print-title" data-photo-title="6">After the Rain</span>
                     <span class="print-price" data-photo-price="6">¥ 3 400</span>
                 </div>
+                <button class="pb-cart-add-btn" data-cart-add><span class="pb-cart-add-label">+ Add to cart</span></button>
                 <div class="print-location" data-photo-location="6">Asakusa · 09.2023</div>
             </div>
 
@@ -358,6 +389,7 @@
                     <span class="print-title" data-photo-title="7">Ramen, 2am</span>
                     <span class="print-price" data-photo-price="7">¥ 2 900</span>
                 </div>
+                <button class="pb-cart-add-btn" data-cart-add><span class="pb-cart-add-label">+ Add to cart</span></button>
                 <div class="print-location" data-photo-location="7">Ebisu · 12.2023</div>
             </div>
 
@@ -367,6 +399,7 @@
                     <span class="print-title" data-photo-title="8">Station Light</span>
                     <span class="print-price" data-photo-price="8">¥ 3 100</span>
                 </div>
+                <button class="pb-cart-add-btn" data-cart-add><span class="pb-cart-add-label">+ Add to cart</span></button>
                 <div class="print-location" data-photo-location="8">Ikebukuro · 08.2023</div>
             </div>
         </div>
@@ -378,5 +411,6 @@
     </footer>
 
     <script src="/js/portfolio-loader.js"></script>
+    <script src="/js/cart.js"></script>
 </body>
 </html>

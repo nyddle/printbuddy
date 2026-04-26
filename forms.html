@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PrintBuddy — Forms</title>
+    <meta name="robots" content="noindex,nofollow">
+</head>
+<body>
+    <!--
+        Hidden static form for Netlify Forms detection at build time.
+        Real submissions happen from /js/cart.js via fetch('/').
+        Do not delete — Netlify scrapes static HTML for form definitions.
+    -->
+    <form name="checkout" netlify netlify-honeypot="bot-field" hidden>
+        <input type="text" name="name">
+        <input type="email" name="email">
+        <input type="text" name="phone">
+        <textarea name="message"></textarea>
+        <input type="text" name="store">
+        <input type="text" name="order_json">
+        <input type="number" name="order_total">
+        <input type="text" name="bot-field">
+    </form>
+</body>
+</html>
